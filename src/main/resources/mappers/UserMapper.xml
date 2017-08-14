@@ -151,4 +151,28 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="checkUsername" resultType="java.lang.Integer">
+    select count(*) from `user` where username=#{username};
+  </select>
+
+  <select id="checkEmail" resultType="java.lang.Integer">
+    select COUNT(*) from `user` WHERE email=#{email};
+  </select>
+  <select id="selectLogin" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from user
+    WHERE username=#{username} and password=#{password};
+  </select>
+  <select id="selectQuestionByUsername" resultType="string">
+    select question from `user` where username=#{username};
+  </select>
+  <select id="checkAnswer" resultType="int">
+    select COUNT(*) from `user`
+    WHERE username=#{username}
+    and question=#{question}
+    and answer=#{answer};
+  </select>
+  <update id="updatePasswordByUsername">
+    update `user` set password = #{newPassword} where username=#{username};
+  </update>
 </mapper>

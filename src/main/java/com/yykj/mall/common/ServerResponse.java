@@ -1,8 +1,12 @@
 package com.yykj.mall.common;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 /**
  * Created by Lee on 2017/8/12.
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ServerResponse<T> {
 
     private int status;
@@ -31,6 +35,7 @@ public class ServerResponse<T> {
         this.data = data;
     }
 
+    @JsonIgnore
     public boolean isSuccess(){
         return status == ResponseCode.SUCCESS.getCode();
     }
