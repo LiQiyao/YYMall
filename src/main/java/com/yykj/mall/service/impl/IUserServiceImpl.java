@@ -43,7 +43,7 @@ public class IUserServiceImpl implements IUserService{
         if (!validResponse.isSuccess()){
             return validResponse;
         }
-        validResponse = this.checkValid(user.getUsername(), Const.EMAIL);
+        validResponse = this.checkValid(user.getEmail(), Const.EMAIL);
         if (!validResponse.isSuccess()){
             return validResponse;
         }
@@ -124,5 +124,42 @@ public class IUserServiceImpl implements IUserService{
             return ServerResponse.createByErrorMessage("token错误，请重新获取！");
         }
         return ServerResponse.createByErrorMessage("修改密码失败！");
+    }
+
+    @Override
+    public ServerResponse<String> resetPassword(User user, String newPassword, String oldPassword) {
+        int res = userMapper.checkPassword(user.getId(), MD5Util.MD5EncodeUtf8(oldPassword));
+        if (res == 0){
+            return ServerResponse.createByErrorMessage("密码输入错误！");
+        }
+        user.setPassword(MD5Util.MD5EncodeUtf8(newPassword));
+        res = userMapper.updateByPrimaryKeySelective(user);
+        if (res > 0){
+            return ServerResponse.createBySuccessMessage("修改密码成功！");
+        }
+        return ServerResponse.createByErrorMessage("修改密码失败！");
+    }
+
+    @Override
+    public ServerResponse<User> updateInformation(User newUserInfo) {
+        int res = userMapper.checkEmailById(newUserInfo.getId(), newUserInfo.getEmail());
+        if (res > 0){
+            return ServerResponse.createByErrorMessage("该邮箱已被其他用户占用！");
+        }
+        res = userMapper.updateByPrimaryKeySelective(newUserInfo);
+        if (res > 0){
+            return ServerResponse.createBySuccess("更新个人信息成功！", newUserInfo);
+        }
+        return ServerResponse.createByErrorMessage("更新个人信息失败！");
+    }
+
+    @Override
+    public ServerResponse<User> getInformation(int userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        if (user == null){
+            return ServerResponse.createByErrorMessage("找不到用户信息！");
+        }
+        user.setPassword(StringUtils.EMPTY);
+        return ServerResponse.createBySuccess(user);
     }
 }

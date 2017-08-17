@@ -153,11 +153,11 @@
   </update>
 
   <select id="checkUsername" resultType="java.lang.Integer">
-    select count(*) from `user` where username=#{username};
+    select count(1) from `user` where username=#{username};
   </select>
 
   <select id="checkEmail" resultType="java.lang.Integer">
-    select COUNT(*) from `user` WHERE email=#{email};
+    select COUNT(1) from `user` WHERE email=#{email};
   </select>
   <select id="selectLogin" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from user
@@ -167,12 +167,18 @@
     select question from `user` where username=#{username};
   </select>
   <select id="checkAnswer" resultType="int">
-    select COUNT(*) from `user`
+    select COUNT(1) from `user`
     WHERE username=#{username}
     and question=#{question}
     and answer=#{answer};
   </select>
   <update id="updatePasswordByUsername">
-    update `user` set password = #{newPassword} where username=#{username};
+    update `user` set password = #{newPassword}, update_time=now()  where username=#{username};
   </update>
+  <select id="checkPassword" resultType="int" parameterType="map">
+    select count(1) from `user` where id=#{id} and password=#{oldPassword};
+  </select>
+  <select id="checkEmailById" resultType="int" parameterType="map">
+    select COUNT(1) from `user` where id!=#{id} and email=#{email};
+  </select>
 </mapper>
