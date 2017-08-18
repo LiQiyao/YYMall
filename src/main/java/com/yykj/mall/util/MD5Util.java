@@ -1,11 +1,16 @@
 package com.yykj.mall.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.MessageDigest;
 
 /**
  * Created by geely
  */
 public class MD5Util {
+
+    private static Logger logger = LoggerFactory.getLogger(MD5Util.class);
 
     private static String byteArrayToHexString(byte b[]) {
         StringBuffer resultSb = new StringBuffer();
@@ -28,25 +33,25 @@ public class MD5Util {
      * 返回大写MD5
      *
      * @param origin
-     * @param charsetname
+     * @param charsetName
      * @return
      */
-    private static String MD5Encode(String origin, String charsetname) {
-        String resultString = null;
+    private static String MD5Encode(String origin, String charsetName) {
+        String resultString = origin;
         try {
-            resultString = new String(origin);
             MessageDigest md = MessageDigest.getInstance("MD5");
-            if (charsetname == null || "".equals(charsetname))
+            if (charsetName == null || "".equals(charsetName))
                 resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
             else
-                resultString = byteArrayToHexString(md.digest(resultString.getBytes(charsetname)));
+                resultString = byteArrayToHexString(md.digest(resultString.getBytes(charsetName)));
         } catch (Exception exception) {
+            logger.error("MD5加密失败！", exception);
         }
         return resultString.toUpperCase();
     }
 
     public static String MD5EncodeUtf8(String origin) {
-        //origin = origin + PropertiesUtil.getProperty("password.salt", "");
+        origin = origin + PropertiesUtil.getProperty("password.salt", "");
         return MD5Encode(origin, "utf-8");
     }
 

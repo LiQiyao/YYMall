@@ -27,12 +27,20 @@ public class PropertiesUtil {
         }
     }
 
-    public String getProperty(String key){
+    public static String getProperty(String key){
         String value = properties.getProperty(key.trim());
         if (StringUtils.isBlank(value)){
             return null;
         }
         return value.trim();
     }
-    
+
+    public static String getProperty(String key, String defaultValue){
+        String value = properties.getProperty(key.trim());
+        if (StringUtils.isBlank(value)){
+            return defaultValue;
+        }
+        return value.trim();
+    }
+
 }
