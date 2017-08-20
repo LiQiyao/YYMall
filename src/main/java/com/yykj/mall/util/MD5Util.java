@@ -12,6 +12,8 @@ public class MD5Util {
 
     private static Logger logger = LoggerFactory.getLogger(MD5Util.class);
 
+    private MD5Util(){}
+
     private static String byteArrayToHexString(byte b[]) {
         StringBuffer resultSb = new StringBuffer();
         for (int i = 0; i < b.length; i++)

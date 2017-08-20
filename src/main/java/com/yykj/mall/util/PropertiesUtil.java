@@ -19,6 +19,8 @@ public class PropertiesUtil {
 
     private static String fileName = "YYMall.properties";
 
+    private PropertiesUtil(){}
+
     static {
         try {
             properties.load(new InputStreamReader(PropertiesUtil.class.getClassLoader().getResourceAsStream(fileName), "UTF-8"));

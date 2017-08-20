@@ -17,4 +17,6 @@ public interface ICategoryService {
     ServerResponse<List<Category>> getParallelChildrenCategory(Integer parentId);
 
     ServerResponse<List<Category>> getDeepChildrenCategory(Integer parentId);
+
+    ServerResponse<List<Integer>> getDeepChildrenCategoryId(Integer parentId);
 }

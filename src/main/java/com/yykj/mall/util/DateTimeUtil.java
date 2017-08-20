@@ -14,6 +14,10 @@ public class DateTimeUtil {
 
     private final static String STANDARD_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
+    private DateTimeUtil(){
+
+    }
+
     public static Date stringToDate(String dateTimeString, String format){
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(format);
         DateTime dateTime = dateTimeFormatter.parseDateTime(dateTimeString);

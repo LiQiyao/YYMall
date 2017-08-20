@@ -193,4 +193,18 @@
       </if>
     </where>
   </select>
+  <select id="selectByKeywordAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
+    select <include refid="Base_Column_List" />
+    from product
+    where status=1
+    <if test="keyword!=null">
+      and `name` like #{keyword}
+    </if>
+    <if test="categoryIdList!=null">
+      and category_id in
+      <foreach collection="categoryIdList" item="item" open="(" separator="," close=")" index="index">
+        #{item}
+      </foreach>
+    </if>
+  </select>
 </mapper>

@@ -78,6 +78,22 @@ public class CategoryServiceImpl implements ICategoryService {
         return ServerResponse.createBySuccess(categoryList);
     }
 
+    //不同于上一个方法的是只查Id
+    @Override
+    public ServerResponse<List<Integer>> getDeepChildrenCategoryId(Integer parentId) {
+        Set<Category> categorySet = Sets.newHashSet();
+        Category category = categoryMapper.selectByPrimaryKey(parentId);
+        if (category != null){
+            categorySet.add(category);
+        }
+        findChildrenCategory(categorySet, parentId);
+        List<Integer> categoryIdList = Lists.newArrayList();
+        for (Category categoryItem : categorySet){
+            categoryIdList.add(categoryItem.getId());
+        }
+        return ServerResponse.createBySuccess(categoryIdList);
+    }
+
     private void findChildrenCategory(Set<Category> categorySet, int categoryId){
             List<Category> categoryList = categoryMapper.selectByParentId(categoryId);
             for (Category item : categoryList){

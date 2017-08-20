@@ -1,18 +1,46 @@
 package com.yykj.mall.common;
 
+import com.google.common.collect.Sets;
+
+import java.util.Set;
+
 /**
  * Created by Lee on 2017/8/13.
  */
 public class Const {
 
     public static final String CURRENT_USER = "currentUser";
+    public static final String EMAIL = "email";
+    public static final String USERNAME = "username";
 
     public interface Role{
-        int ROLE_CUSTOMOR = 0;
+        int ROLE_CUSTOMER = 0;
         int ROLE_ADMIN = 1;
     }
 
-    public static final String EMAIL = "email";
+    public interface PoductListOrderBy{
+        Set<String> PRICE_ASC_DESC = Sets.newHashSet("price_desc", "price_asc");//contains方法 O(1)复杂度
+    }
 
-    public static final String USERNAME = "username";
+    public enum ProductStatus{
+        ON_SALE(1, "正在销售");
+
+        private int code;
+        private String desc;
+
+        ProductStatus(int code, String desc) {
+            this.desc = desc;
+            this.code = code;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+
+
 }
