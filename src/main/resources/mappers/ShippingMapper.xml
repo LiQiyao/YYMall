@@ -31,7 +31,7 @@
     delete from shipping
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.yykj.mall.pojo.Shipping" >
+  <insert id="insert" parameterType="com.yykj.mall.pojo.Shipping" useGeneratedKeys="true" keyProperty="id">
     insert into shipping (id, user_id, receiver_name, 
       receiver_phone, receiver_mobile, receiver_province, 
       receiver_city, receiver_district, receiver_address, 
@@ -43,7 +43,7 @@
       #{receiverZip,jdbcType=VARCHAR}, now(), now()
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yykj.mall.pojo.Shipping" >
+  <insert id="insertSelective" parameterType="com.yykj.mall.pojo.Shipping"  useGeneratedKeys="true" keyProperty="id">
     insert into shipping
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -176,4 +176,11 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from shipping
+    where user_id=#{userId}
+  </select>
 </mapper>

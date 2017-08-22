@@ -18,7 +18,7 @@ public class Const {
         int ROLE_ADMIN = 1;
     }
 
-    public interface PoductListOrderBy{
+    public interface ProductListOrderBy{
         Set<String> PRICE_ASC_DESC = Sets.newHashSet("price_desc", "price_asc");//contains方法 O(1)复杂度
     }
 
@@ -42,5 +42,10 @@ public class Const {
         }
     }
 
-
+    public interface Cart{
+        int CHECKED = 1;//选中
+        int UN_CHECKED = 0;//未选中
+        String LIMIT_QUANTITY_FAIL = "LIMIT_QUANTITY_FAIL";//订货量超过库存
+        String LIMIT_QUANTITY_SUCCESS = "LIMIT_QUANTITY_SUCCESS";//未超过库存
+    }
 }
