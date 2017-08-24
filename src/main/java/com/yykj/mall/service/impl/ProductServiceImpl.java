@@ -189,7 +189,7 @@ public class ProductServiceImpl implements IProductService {
         logger.info("bbb" + keyword);
         PageHelper.startPage(pageNum, pageSize);//紧跟在这后面的第一个查询数据库方法会被分页
         if (StringUtils.isNotBlank(orderBy)){
-            if (Const.PoductListOrderBy.PRICE_ASC_DESC.contains(orderBy)){
+            if (Const.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)){
                 String[] orderByArr = orderBy.split("_");
                 PageHelper.orderBy(orderByArr[0] + " " + orderByArr[1]);
             }

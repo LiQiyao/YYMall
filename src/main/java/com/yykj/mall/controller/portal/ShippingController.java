@@ -30,17 +30,19 @@ public class ShippingController {
     public ServerResponse add(HttpSession session, Shipping shipping){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null){
-            ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
+        return iShippingService.add(user.getId(), shipping);
     }
 
     @RequestMapping(value = "delete.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse delete(HttpSession session, Shipping shipping){
+    public ServerResponse delete(HttpSession session, Integer shippingId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null){
-            ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
+        return iShippingService.delete(user.getId(), shippingId);
     }
 
     @RequestMapping(value = "update.do", method = RequestMethod.POST)
@@ -48,17 +50,19 @@ public class ShippingController {
     public ServerResponse update(HttpSession session, Shipping shipping){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null){
-            ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
+        return iShippingService.update(user.getId(), shipping);
     }
 
     @RequestMapping(value = "detail.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse detail(HttpSession session, Shipping shipping){
+    public ServerResponse detail(HttpSession session, Integer shippingId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null){
-            ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
+        return iShippingService.detail(user.getId(), shippingId);
     }
 
     @RequestMapping(value = "list.do", method = RequestMethod.POST)
@@ -66,8 +70,8 @@ public class ShippingController {
     public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1")int pageNum, @RequestParam(value = "pageSize", defaultValue = "10")int pageSize){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null){
-            ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return
+        return iShippingService.list(user.getId(), pageNum, pageSize);
     }
 }
