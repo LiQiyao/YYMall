@@ -150,4 +150,10 @@
   <select id="selectProductCount" resultType="int">
     select IFNULL(sum(quantity),0) from cart where user_id=#{userId};
   </select>
+
+  <select id="selectCheckedByUserId" resultMap="BaseResultMap" parameterType="map">
+    select
+     <include refid="Base_Column_List"/>
+     from cart where checked = 1 and user_id=#{userId};
+  </select>
 </mapper>

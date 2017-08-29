@@ -26,15 +26,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from order
+    from `order`
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from order
+    delete from `order`
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yykj.mall.pojo.Order" >
-    insert into order (id, order_no, user_id, 
+    insert into `order` (id, order_no, user_id,
       shipping_id, payment, payment_type, 
       postage, status, payment_time, 
       send_time, end_time, close_time, 
@@ -46,7 +46,7 @@
       now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.yykj.mall.pojo.Order" >
-    insert into order
+    insert into `order`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -137,7 +137,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.yykj.mall.pojo.Order" >
-    update order
+    update `order`
     <set >
       <if test="orderNo != null" >
         order_no = #{orderNo,jdbcType=BIGINT},
@@ -182,7 +182,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yykj.mall.pojo.Order" >
-    update order
+    update `order`
     set order_no = #{orderNo,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=INTEGER},
       shipping_id = #{shippingId,jdbcType=INTEGER},
@@ -198,4 +198,27 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByOrderNoAndUserId" resultMap="BaseResultMap" parameterType="map">
+    select
+     <include refid="Base_Column_List"/>
+    from `order`
+    where order_no=#{orderNo}
+    and user_id=#{userId};
+  </select>
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="long">
+    select <include refid="Base_Column_List"/> from `order` where order_no=#{orderNo};
+  </select>
+
+  <select id="selectByUserId" parameterType="int" resultMap="BaseResultMap">
+    select
+     <include refid="Base_Column_List"/>
+     from `order` where user_id = #{userId} order by create_time desc
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from `order`
+    ORDER BY  create_time desc
+  </select>
 </mapper>
