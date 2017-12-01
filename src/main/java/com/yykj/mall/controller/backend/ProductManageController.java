@@ -35,37 +35,37 @@ public class ProductManageController{
     @Autowired
     private IFileService iFileService;
 
-    @RequestMapping(value = "save_or_update.do", method = RequestMethod.POST)
+    @RequestMapping(value = "save_or_update.html", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse saveOrUpdate(Product product){
         return iProductService.saveOrUpdate(product);
     }
 
-    @RequestMapping(value = "set_status.do", method = RequestMethod.POST)
+    @RequestMapping(value = "set_status.html", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse setStatus(Integer productId, Integer status){
         return iProductService.setStatus(productId, status);
     }
 
-    @RequestMapping(value = "detail.do", method = RequestMethod.GET)
+    @RequestMapping(value = "detail.html", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getDetail(Integer productId){
         return iProductService.manageProductDetail(productId);
     }
 
-    @RequestMapping(value = "list.do", method = RequestMethod.GET)
+    @RequestMapping(value = "list.html", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
         return iProductService.getProductList(pageNum, pageSize);
     }
 
-    @RequestMapping(value = "search.do", method = RequestMethod.GET)
+    @RequestMapping(value = "search.html", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse searchProduct(String productName, Integer productId, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
         return iProductService.searchProduct(productName, productId, pageNum, pageSize);
     }
 
-    @RequestMapping(value = "upload.do", method = RequestMethod.POST)
+    @RequestMapping(value = "upload.html", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse upload(@RequestParam(value = "upload_file", required = false)MultipartFile file, HttpServletRequest req){
 
@@ -87,7 +87,7 @@ public class ProductManageController{
         "msg": "error message", # optional
         "file_path": "[real file path]"
     }*/
-    @RequestMapping(value = "rich_text_upload.do", method = RequestMethod.POST)
+    @RequestMapping(value = "rich_text_upload.html", method = RequestMethod.POST)
     @ResponseBody
     public Map richTextUpload(@RequestParam(value = "upload_file", required = false)MultipartFile file, HttpServletRequest req, HttpServletResponse resp){
         Map resultMap = Maps.newHashMap();

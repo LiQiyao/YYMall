@@ -27,6 +27,7 @@ public class CategoryServiceImpl implements ICategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Override
     public ServerResponse addCategory(String categoryName, int parentId){
         if (StringUtils.isBlank(categoryName)){
             return ServerResponse.createByErrorMessage("添加分类参数错误！");
@@ -42,6 +43,7 @@ public class CategoryServiceImpl implements ICategoryService {
         return ServerResponse.createByErrorMessage("添加分类失败！");
     }
 
+    @Override
     public ServerResponse modifyCategory(Integer categoryId, String newCategoryName){
         if (categoryId == null || StringUtils.isBlank(newCategoryName)){
             ServerResponse.createByErrorMessage("修改分类名称参数错误！");

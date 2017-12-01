@@ -30,6 +30,7 @@ public class ShippingServiceImpl implements IShippingService{
         return ServerResponse.createByErrorMessage("新增地址失败");
     }
 
+    @Override
     public ServerResponse delete(Integer userId, Integer shippingId){
         if (shippingId == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -41,6 +42,7 @@ public class ShippingServiceImpl implements IShippingService{
         return ServerResponse.createByErrorMessage("删除收货地址失败！");
     }
 
+    @Override
     public ServerResponse update(Integer userId, Shipping shipping){
         shipping.setUserId(userId);
         int res = shippingMapper.updateByRecord(shipping);
@@ -50,6 +52,7 @@ public class ShippingServiceImpl implements IShippingService{
         return ServerResponse.createByErrorMessage("更新失败");
     }
 
+    @Override
     public ServerResponse<Shipping> detail(Integer userId, Integer shippingId){
         if (shippingId == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -61,6 +64,7 @@ public class ShippingServiceImpl implements IShippingService{
         return ServerResponse.createByErrorMessage("查询失败！");
     }
 
+    @Override
     public ServerResponse<PageInfo> list(Integer userId, int pageNum, int pageSize){
         PageHelper.startPage(pageNum, pageSize);
         List<Shipping> shippingList = shippingMapper.selectByUserId(userId);

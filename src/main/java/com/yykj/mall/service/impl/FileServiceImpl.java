@@ -20,6 +20,7 @@ public class FileServiceImpl implements IFileService {
 
     private Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
+    @Override
     public String upload(MultipartFile file, String path){
         //path是暂时上传到tomcat服务器的路径，后面还要转移到ftp服务器
         String fileName = file.getOriginalFilename();

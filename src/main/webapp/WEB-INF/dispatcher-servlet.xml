@@ -30,6 +30,14 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:interceptors>
+        <bean class="com.yykj.mall.interceptor.AllInterceptor"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/manage/**/*"/>
+            <mvc:exclude-mapping path="/manage/user/login.html"/>
+            <bean class="com.yykj.mall.interceptor.ManagerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <!-- 文件上传 -->

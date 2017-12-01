@@ -33,6 +33,7 @@ public class CartServiceImpl implements ICartService {
     @Autowired
     private ProductMapper productMapper;
 
+    @Override
     public ServerResponse<CartVo> add(Integer userId, Integer productId, Integer count){
         if (productId == null || count == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -53,6 +54,7 @@ public class CartServiceImpl implements ICartService {
         return list(userId);
     }
 
+    @Override
     public ServerResponse<CartVo> update(Integer userId, Integer productId, Integer count){
         if (count == null || productId == null || count == 0){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -68,6 +70,7 @@ public class CartServiceImpl implements ICartService {
     }
 
     //允许批量删除商品
+    @Override
     public ServerResponse<CartVo> deleteProducts(Integer userId, String productIds){
         List<String> productIdList = Splitter.on(",").splitToList(productIds);
         if (CollectionUtils.isEmpty(productIdList)){
@@ -77,16 +80,19 @@ public class CartServiceImpl implements ICartService {
         return list(userId);
     }
 
+    @Override
     public ServerResponse<CartVo> list(Integer userId){
         CartVo cartVo = getLimitedCartVo(userId);
         return ServerResponse.createBySuccess(cartVo);
     }
 
+    @Override
     public ServerResponse<CartVo> checkOrUnCheck(Integer userId, Integer productId, Integer checked){
         cartMapper.updateCheckedOrUnchecked(userId, productId, checked);
         return list(userId);
     }
 
+    @Override
     public ServerResponse<Integer> getProductCount(Integer userId){
         if(userId == null){
             return ServerResponse.createBySuccess(0);
