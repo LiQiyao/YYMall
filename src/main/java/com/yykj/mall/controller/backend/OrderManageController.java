@@ -26,7 +26,7 @@ public class OrderManageController {
     @Autowired
     private IOrderService iOrderService;
 
-    @RequestMapping("list.do")
+    @RequestMapping("list.html")
     @ResponseBody
     public ServerResponse<PageInfo> orderList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                               @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
@@ -34,7 +34,7 @@ public class OrderManageController {
 
     }
 
-    @RequestMapping("detail.do")
+    @RequestMapping("detail.html")
     @ResponseBody
     public ServerResponse<OrderVo> orderDetail(HttpSession session, Long orderNo){
 
@@ -42,14 +42,14 @@ public class OrderManageController {
 
     }
 
-    @RequestMapping("search.do")
+    @RequestMapping("search.html")
     @ResponseBody
     public ServerResponse<PageInfo> orderSearch(HttpSession session, Long orderNo,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                                 @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
         return iOrderService.manageSearch(orderNo,pageNum,pageSize);
     }
 
-    @RequestMapping("send_goods.do")
+    @RequestMapping("send_goods.html")
     @ResponseBody
     public ServerResponse<String> orderSendGoods(HttpSession session, Long orderNo){
         return iOrderService.manageSendGoods(orderNo);

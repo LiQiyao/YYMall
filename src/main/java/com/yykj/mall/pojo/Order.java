@@ -1,9 +1,10 @@
 package com.yykj.mall.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Order {
+public class Order implements Serializable {
     private Integer id;
 
     private Long orderNo;

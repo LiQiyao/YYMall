@@ -86,7 +86,7 @@ public class OrderServiceImpl implements IOrderService {
 
     }
 
-
+    @Override
     public ServerResponse getCartCheckedProduct(Integer userId){
         OrderProductVo orderProductVo = new OrderProductVo();
         //从购物车中获取数据
@@ -111,6 +111,7 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createBySuccess(orderProductVo);
     }
 
+    @Override
     public ServerResponse cancel(Integer userId, Long orderNo){
         Order order = orderMapper.selectByOrderNoAndUserId(orderNo, userId);
         if (order == null){
@@ -129,6 +130,7 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createByErrorMessage("取消订单失败！");
     }
 
+    @Override
     public ServerResponse create(Integer userId, Integer shippingId){
 
         List<Cart> cartList = cartMapper.selectCheckedByUserId(userId);
@@ -163,7 +165,7 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createBySuccess(orderVo);
     }
 
-
+    @Override
     public ServerResponse<OrderVo> getDetail(Integer userId,Long orderNo){
         Order order = orderMapper.selectByOrderNoAndUserId(orderNo, userId);
         if(order != null){
@@ -174,6 +176,7 @@ public class OrderServiceImpl implements IOrderService {
         return  ServerResponse.createByErrorMessage("未有找到该订单！");
     }
 
+    @Override
     public ServerResponse<PageInfo> getList(Integer userId, int pageNum, int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         List<Order> orderList = orderMapper.selectByUserId(userId);
@@ -236,6 +239,7 @@ public class OrderServiceImpl implements IOrderService {
         orderVo.setOrderItemVoList(orderItemVoList);
         return orderVo;
     }
+
 
     private OrderItemVo assembleOrderItemVo(OrderItem orderItem){
         OrderItemVo orderItemVo = new OrderItemVo();
@@ -344,7 +348,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
 
-
+    @Override
     public ServerResponse pay(Long orderNo, Integer userId, String path){
         if (orderNo == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -465,6 +469,7 @@ public class OrderServiceImpl implements IOrderService {
         }
     }
 
+    @Override
     public ServerResponse alipayCallback(Map<String, String> params){
         Long orderNo = Long.parseLong(params.get("out_trade_no"));
         Order order = orderMapper.selectByOrderNo(orderNo);
@@ -493,6 +498,7 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createBySuccess();
     }
 
+    @Override
     public ServerResponse<Boolean> queryOrderPayStatus(Integer userId, Long orderNo){
         Order order = orderMapper.selectByOrderNoAndUserId(orderNo, userId);
         if (order != null && order.getStatus() >= Const.OrderStatusEnum.PAID.getCode()){
@@ -502,6 +508,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     //管理员端
+    @Override
     public ServerResponse<PageInfo> manageList(int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         List<Order> orderList = orderMapper.selectAll();
@@ -511,7 +518,7 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createBySuccess(pageResult);
     }
 
-
+    @Override
     public ServerResponse<OrderVo> manageDetail(Long orderNo){
         Order order = orderMapper.selectByOrderNo(orderNo);
         if(order != null){
@@ -522,8 +529,7 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createByErrorMessage("订单不存在");
     }
 
-
-
+    @Override
     public ServerResponse<PageInfo> manageSearch(Long orderNo,int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         Order order = orderMapper.selectByOrderNo(orderNo);
@@ -538,7 +544,7 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createByErrorMessage("订单不存在");
     }
 
-
+    @Override
     public ServerResponse<String> manageSendGoods(Long orderNo){
         Order order= orderMapper.selectByOrderNo(orderNo);
         if(order != null){

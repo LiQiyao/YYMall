@@ -1,8 +1,9 @@
 package com.yykj.mall.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PayInfo {
+public class PayInfo implements Serializable {
     private Integer id;
 
     private Integer userId;

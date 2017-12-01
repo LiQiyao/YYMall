@@ -22,13 +22,14 @@ public class UserManageController {
     @Autowired
     private IUserService iUserService;
 
-    @RequestMapping(value = "login.do", method = RequestMethod.POST)
+    @RequestMapping(value = "login.html", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session){
         ServerResponse<User> response = iUserService.login(username, password);
         if (response.isSuccess()){
             User user = response.getData();
             if (user.getRole() == Const.Role.ROLE_ADMIN){
+                session.setAttribute(Const.CURRENT_USER, user);
                 return response;
             }
         }
