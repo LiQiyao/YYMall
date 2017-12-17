@@ -6,10 +6,7 @@ import com.yykj.mall.service.IProductService;
 import com.yykj.mall.vo.ProductDetailVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -23,13 +20,13 @@ public class ProductController {
     @Autowired
     private IProductService iProductService;
 
-    @RequestMapping(value = "detail.html", method = RequestMethod.GET)
+    @RequestMapping(value = "{productId}/detail.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse<ProductDetailVo> detail(Integer productId){
+    public ServerResponse<ProductDetailVo> detail(@PathVariable Integer productId){
         return iProductService.getProductDetail(productId);
     }
 
-    @RequestMapping(value = "list.html", method = RequestMethod.GET)
+    @RequestMapping(value = "list.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<PageInfo> list(@RequestParam(value = "keyword", required = false) String keyword,
                                          @RequestParam(value = "categoryId", required = false) Integer categoryId,

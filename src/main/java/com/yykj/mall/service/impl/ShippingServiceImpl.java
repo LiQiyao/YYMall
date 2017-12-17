@@ -21,6 +21,7 @@ public class ShippingServiceImpl implements IShippingService{
     @Autowired
     private ShippingMapper shippingMapper;
 
+    @Override
     public ServerResponse<Integer> add(Integer userId, Shipping shipping){
         shipping.setUserId(userId);
         int res = shippingMapper.insertSelective(shipping);

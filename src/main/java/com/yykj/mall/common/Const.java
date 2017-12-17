@@ -23,7 +23,10 @@ public class Const {
     }
 
     public enum ProductStatus{
-        ON_SALE(1, "正在销售");
+        ON_SALE(1, "正在销售"),
+        NOT_ON_SALE(2, "已下架"),
+        WILL_ON_FALSH_SALE(3, "即将开启限时抢购"),
+        ON_FLASH_SALE(4, "正在限时抢购");
 
         private int code;
         private String desc;

@@ -17,13 +17,13 @@ import javax.servlet.http.HttpSession;
  * Created by Lee on 2017/8/12.
  */
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/users/")
 public class UserController {
 
     @Autowired
     private IUserService iUserService;
 
-    @RequestMapping(value = "login.html", method = RequestMethod.POST)
+    @RequestMapping(value = "login.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session){
         ServerResponse<User> response = iUserService.login(username, password);
@@ -33,26 +33,26 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value = "logout.html", method = RequestMethod.GET)
+    @RequestMapping(value = "logout.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> logout(HttpSession session){
         session.removeAttribute(Const.CURRENT_USER);
         return ServerResponse.createBySuccess();
     }
 
-    @RequestMapping(value = "register.html", method = RequestMethod.POST)
+    @RequestMapping(value = "register.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> register(User user){
         return iUserService.register(user);
     }
 
-    @RequestMapping(value = "check_valid.html", method = RequestMethod.POST)
+    @RequestMapping(value = "register_check_valid.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> checkValid(String s, String type){
         return iUserService.checkValid(s, type);
     }
 
-    @RequestMapping(value = "get_user_info.html", method = RequestMethod.POST)
+    @RequestMapping(value = "info.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<User> getUserInfo(HttpSession session){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -62,26 +62,26 @@ public class UserController {
         return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息！");
     }
 
-    @RequestMapping(value = "forget_get_question.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/forget_pwd/get_question.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> forgetGetQuestion(String username){
         return iUserService.selectQuestion(username);
     }
 
     //返回一个token,用于重置密码时的校验
-    @RequestMapping(value = "forget_check_answer.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/forget_pwd/check_answer.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetCheckAnswer(String username, String question, String answer){
         return iUserService.checkAnswer(username, question, answer);
     }
 
-    @RequestMapping(value = "forget_reset_password.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/forget_pwd/reset_password.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> forgetResetPassword(String username, String newPassword, String giveToken){
-        return iUserService.forgetResetPassword(username, newPassword, giveToken);
+    public ServerResponse<String> forgetResetPassword(String username, String newPassword, String token){
+        return iUserService.forgetResetPassword(username, newPassword, token);
     }
 
-    @RequestMapping(value = "reset_password.html", method = RequestMethod.POST)
+    @RequestMapping(value = "reset_password.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetResetPassword(HttpSession session, String oldPassword, String newPassword){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -91,7 +91,7 @@ public class UserController {
         return iUserService.resetPassword(user, newPassword, oldPassword);
     }
 
-    @RequestMapping(value = "update_information.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/info/update.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> updateInformation(HttpSession session, User newUserInfo){
         User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
@@ -107,7 +107,7 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value = "get_information.html", method = RequestMethod.POST)
+/*    @RequestMapping(value = "get_information.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> getInformation(HttpSession session){
         User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
@@ -115,5 +115,5 @@ public class UserController {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "未登录，跳转到登录界面！");
         }
         return iUserService.getInformation(currentUser.getId());
-    }
+    }*/
 }

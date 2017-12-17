@@ -38,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
@@ -131,6 +132,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public ServerResponse create(Integer userId, Integer shippingId){
 
         List<Cart> cartList = cartMapper.selectCheckedByUserId(userId);
@@ -319,8 +321,8 @@ public class OrderServiceImpl implements IOrderService {
 
     private ServerResponse<List<OrderItem>> getCartOrderItem(List<Cart> cartList){
         List<OrderItem> orderItemList = Lists.newArrayList();
-        if (CollectionUtils.isEmpty(orderItemList)){
-            return ServerResponse.createByErrorMessage("购物车为空！");
+        if (CollectionUtils.isEmpty(cartList)){
+            return ServerResponse.createByErrorMessage("购物车中已选中商品为空！");
         }
         //校验购物车数据的正确性，包括商品的状态和数量
         OrderItem orderItem;
@@ -470,6 +472,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public ServerResponse alipayCallback(Map<String, String> params){
         Long orderNo = Long.parseLong(params.get("out_trade_no"));
         Order order = orderMapper.selectByOrderNo(orderNo);
@@ -478,10 +481,13 @@ public class OrderServiceImpl implements IOrderService {
         }
         String tradeNo = params.get("trade_no");
         String tradeStatus = params.get("trade_status");
+        log.info("交易状态：" + tradeStatus);
         if (order.getStatus() >= Const.OrderStatusEnum.PAID.getCode()){
             return ServerResponse.createByErrorMessage("支付宝重复调用");
         }
+
         if (Const.AlipayCallback.TRADE_STATUS_TRADE_SUCCESS.equals(tradeStatus)){
+            log.info("支付成功");
             order.setPaymentTime(DateTimeUtil.stringToDate(params.get("gmt_payment")));
             order.setStatus(Const.OrderStatusEnum.PAID.getCode());
             orderMapper.updateByPrimaryKeySelective(order);
@@ -492,7 +498,7 @@ public class OrderServiceImpl implements IOrderService {
         payInfo.setPayPlatform(Const.PayPlatformEnum.ALIPAY.getCode());
         payInfo.setPlatformNumber(tradeNo);
         payInfo.setPlatformStatus(tradeStatus);
-
+        log.info("支付信息：" + payInfo);
         payInfoMapper.insert(payInfo);
         //TODO
         return ServerResponse.createBySuccess();

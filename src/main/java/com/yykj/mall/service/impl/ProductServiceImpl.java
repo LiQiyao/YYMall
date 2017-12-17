@@ -164,7 +164,7 @@ public class ProductServiceImpl implements IProductService {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         Product product = productMapper.selectByPrimaryKey(productId);
-        if (product == null || product.getStatus() == Const.ProductStatus.ON_SALE.getCode()){
+        if (product == null || product.getStatus() != Const.ProductStatus.ON_SALE.getCode()){
             return ServerResponse.createByErrorMessage("产品已下架或删除！");
         }
         ProductDetailVo productDetailVo = assembleProductDetailVo(product);

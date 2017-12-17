@@ -4,6 +4,7 @@ package com.yykj.mall.vo;
  * Created by Lee on 2017/8/29.
  */
 public class ShippingVo {
+
     private String receiverName;
 
     private String receiverPhone;

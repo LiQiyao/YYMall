@@ -24,7 +24,7 @@ public class CartController {
     @Autowired
     private ICartService iCartService;
 
-    @RequestMapping(value = "add.html", method = RequestMethod.POST)
+    @RequestMapping(value = "add.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<CartVo> add(HttpSession session, Integer count, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -34,7 +34,7 @@ public class CartController {
         return iCartService.add(user.getId(), productId, count);
     }
 
-    @RequestMapping(value = "list.html", method = RequestMethod.POST)
+    @RequestMapping(value = "list.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<CartVo> list(HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -44,7 +44,7 @@ public class CartController {
         return iCartService.list(user.getId());
     }
 
-    @RequestMapping(value = "update.html", method = RequestMethod.POST)
+    @RequestMapping(value = "update.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<CartVo> update(HttpSession session, Integer count, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -54,7 +54,7 @@ public class CartController {
         return iCartService.update(user.getId(),productId,count);
     }
 
-    @RequestMapping(value = "delete_products.html", method = RequestMethod.POST)
+    @RequestMapping(value = "delete_products.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<CartVo> delete_products(HttpSession session, String productIds){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -64,7 +64,7 @@ public class CartController {
         return iCartService.deleteProducts(user.getId(), productIds);
     }
 
-    @RequestMapping(value = "check_all.html", method = RequestMethod.POST)
+    @RequestMapping(value = "check_all.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<CartVo> checkAll(HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -74,7 +74,7 @@ public class CartController {
         return iCartService.checkOrUnCheck(user.getId(), null, Const.Cart.CHECKED);
     }
 
-    @RequestMapping(value = "un_check_all.html", method = RequestMethod.POST)
+    @RequestMapping(value = "un_check_all.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<CartVo> unCheckAll(HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -84,7 +84,7 @@ public class CartController {
         return iCartService.checkOrUnCheck(user.getId(), null, Const.Cart.UN_CHECKED);
     }
 
-    @RequestMapping(value = "check.html", method = RequestMethod.POST)
+    @RequestMapping(value = "check.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<CartVo> check(HttpSession session, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -94,7 +94,7 @@ public class CartController {
         return iCartService.checkOrUnCheck(user.getId(), productId, Const.Cart.CHECKED);
     }
 
-    @RequestMapping(value = "un_check.html", method = RequestMethod.POST)
+    @RequestMapping(value = "un_check.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<CartVo> unCheck(HttpSession session, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);

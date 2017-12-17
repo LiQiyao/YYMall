@@ -5,6 +5,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  * Created by Lee on 2017/8/12.
+ * @author Lee
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ServerResponse<T> {
@@ -78,5 +79,14 @@ public class ServerResponse<T> {
 
     public static <T> ServerResponse<T> createByErrorCodeMessage(int errorCode, String msg){
         return new ServerResponse<T>(errorCode, msg);
+    }
+
+    @Override
+    public String toString() {
+        return "ServerResponse{" +
+                "status=" + status +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

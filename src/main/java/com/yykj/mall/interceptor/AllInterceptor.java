@@ -1,5 +1,7 @@
 package com.yykj.mall.interceptor;
 
+import com.yykj.mall.common.Const;
+import com.yykj.mall.pojo.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +16,9 @@ public class AllInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         httpServletRequest.setCharacterEncoding("utf-8");
         httpServletResponse.setCharacterEncoding("utf-8");
+        User user = new User();
+        user.setId(26);
+        httpServletRequest.getSession().setAttribute(Const.CURRENT_USER, user);
         return true;
     }
 
@@ -24,6 +29,5 @@ public class AllInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-
     }
 }

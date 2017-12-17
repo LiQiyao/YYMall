@@ -25,7 +25,7 @@ public class ShippingController {
     @Autowired
     private IShippingService iShippingService;
 
-    @RequestMapping(value = "add.html", method = RequestMethod.POST)
+    @RequestMapping(value = "add.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse add(HttpSession session, Shipping shipping){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -35,7 +35,7 @@ public class ShippingController {
         return iShippingService.add(user.getId(), shipping);
     }
 
-    @RequestMapping(value = "delete.html", method = RequestMethod.POST)
+    @RequestMapping(value = "delete.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse delete(HttpSession session, Integer shippingId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -45,7 +45,7 @@ public class ShippingController {
         return iShippingService.delete(user.getId(), shippingId);
     }
 
-    @RequestMapping(value = "update.html", method = RequestMethod.POST)
+    @RequestMapping(value = "update.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse update(HttpSession session, Shipping shipping){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -55,7 +55,7 @@ public class ShippingController {
         return iShippingService.update(user.getId(), shipping);
     }
 
-    @RequestMapping(value = "detail.html", method = RequestMethod.POST)
+    @RequestMapping(value = "detail.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse detail(HttpSession session, Integer shippingId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -65,7 +65,7 @@ public class ShippingController {
         return iShippingService.detail(user.getId(), shippingId);
     }
 
-    @RequestMapping(value = "list.html", method = RequestMethod.POST)
+    @RequestMapping(value = "list.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1")int pageNum, @RequestParam(value = "pageSize", defaultValue = "10")int pageSize){
         User user = (User) session.getAttribute(Const.CURRENT_USER);

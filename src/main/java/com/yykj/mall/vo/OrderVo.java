@@ -7,6 +7,7 @@ import java.util.List;
  * Created by Lee on 2017/8/29.
  */
 public class OrderVo {
+
     private Long orderNo;
 
     private BigDecimal payment;
@@ -14,6 +15,7 @@ public class OrderVo {
     private Integer paymentType;
 
     private String paymentTypeDesc;
+
     private Integer postage;
 
     private Integer status;
