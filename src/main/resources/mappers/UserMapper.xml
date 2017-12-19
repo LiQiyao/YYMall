@@ -26,11 +26,11 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
+    delete from `user`
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yykj.mall.pojo.User" >
-    insert into user (id, username, password, 
+    insert into `user` (id, username, password,
       email, phone, question, 
       answer, role, create_time, 
       update_time)
@@ -40,7 +40,7 @@
       now())
   </insert>
   <insert id="insertSelective" parameterType="com.yykj.mall.pojo.User" >
-    insert into user
+    insert into `user`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -107,7 +107,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.yykj.mall.pojo.User" >
-    update user
+    update `user`
     <set >
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
@@ -140,7 +140,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yykj.mall.pojo.User" >
-    update user
+    update `user`
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},

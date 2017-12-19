@@ -1,11 +1,11 @@
-package com.yykj.mall.vo;
+package com.yykj.mall.dto;
 
 import java.math.BigDecimal;
 
 /**
  * Created by Lee on 2017/8/20.
  */
-public class CartProductVo {
+public class CartProductDTO {
 
     //结合了商品信息和购物车的一个值对象
     private Integer id;

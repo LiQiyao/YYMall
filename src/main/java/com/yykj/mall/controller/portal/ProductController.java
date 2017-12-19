@@ -3,15 +3,10 @@ package com.yykj.mall.controller.portal;
 import com.github.pagehelper.PageInfo;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.service.IProductService;
-import com.yykj.mall.vo.ProductDetailVo;
+import com.yykj.mall.dto.ProductDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Lee on 2017/8/19.
@@ -23,13 +18,13 @@ public class ProductController {
     @Autowired
     private IProductService iProductService;
 
-    @RequestMapping(value = "detail.html", method = RequestMethod.GET)
+    @RequestMapping(value = "{productId}/detail.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse<ProductDetailVo> detail(Integer productId){
+    public ServerResponse<ProductDetailDTO> detail(@PathVariable Integer productId){
         return iProductService.getProductDetail(productId);
     }
 
-    @RequestMapping(value = "list.html", method = RequestMethod.GET)
+    @RequestMapping(value = "list.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<PageInfo> list(@RequestParam(value = "keyword", required = false) String keyword,
                                          @RequestParam(value = "categoryId", required = false) Integer categoryId,

@@ -2,7 +2,7 @@ package com.yykj.mall.service;
 
 import com.github.pagehelper.PageInfo;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.vo.OrderVo;
+import com.yykj.mall.dto.OrderDTO;
 
 import java.util.Map;
 
@@ -23,13 +23,13 @@ public interface IOrderService {
 
     ServerResponse getCartCheckedProduct(Integer userId);
 
-    ServerResponse<OrderVo> getDetail(Integer userId, Long orderNo);
+    ServerResponse<OrderDTO> getDetail(Integer userId, Long orderNo);
 
     ServerResponse<PageInfo> getList(Integer userId, int pageNum, int pageSize);
 
     ServerResponse<PageInfo> manageList(int pageNum,int pageSize);
 
-    ServerResponse<OrderVo> manageDetail(Long orderNo);
+    ServerResponse<OrderDTO> manageDetail(Long orderNo);
 
     ServerResponse<PageInfo> manageSearch(Long orderNo, int pageNum, int pageSize);
 

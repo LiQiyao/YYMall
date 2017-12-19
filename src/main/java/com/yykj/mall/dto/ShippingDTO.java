@@ -1,9 +1,10 @@
-package com.yykj.mall.vo;
+package com.yykj.mall.dto;
 
 /**
  * Created by Lee on 2017/8/29.
  */
-public class ShippingVo {
+public class ShippingDTO {
+
     private String receiverName;
 
     private String receiverPhone;

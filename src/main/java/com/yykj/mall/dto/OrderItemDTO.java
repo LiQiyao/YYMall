@@ -1,11 +1,11 @@
-package com.yykj.mall.vo;
+package com.yykj.mall.dto;
 
 import java.math.BigDecimal;
 
 /**
  * Created by Lee on 2017/8/29.
  */
-public class OrderItemVo {
+public class OrderItemDTO {
 
     private Long orderNo;
 

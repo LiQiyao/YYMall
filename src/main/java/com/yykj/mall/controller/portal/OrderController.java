@@ -35,17 +35,17 @@ public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    @RequestMapping(value = "create.html", method = RequestMethod.GET)
+    @RequestMapping(value = "create.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse create(HttpSession session, Integer shippingId){
-/*        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
-        }*/
-        return iOrderService.create(1, shippingId);
+        }
+        return iOrderService.create(user.getId(), shippingId);
     }
 
-    @RequestMapping(value = "cancel.html", method = RequestMethod.GET)
+    @RequestMapping(value = "cancel.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse cancel(HttpSession session, Long orderNo){
 /*        User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -56,17 +56,17 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "get_cart_checked_product.html", method = RequestMethod.GET)
+    @RequestMapping(value = "cart-checked-product.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getCartCheckedProduct(HttpSession session){
-/*        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
-        }*/
-        return iOrderService.getCartCheckedProduct(1);
+        }
+        return iOrderService.getCartCheckedProduct(user.getId());
     }
 
-    @RequestMapping("detail.html")
+    @RequestMapping(value = "detail.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse detail(HttpSession session,Long orderNo){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -76,7 +76,7 @@ public class OrderController {
         return iOrderService.getDetail(user.getId(),orderNo);
     }
 
-    @RequestMapping("list.html")
+    @RequestMapping(value = "list.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -91,18 +91,18 @@ public class OrderController {
 
 
 
-    @RequestMapping(value = "pay.html", method = RequestMethod.GET)
+    @RequestMapping(value = "pay.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse pay(HttpSession session, Long orderNo, HttpServletRequest request){
-/*        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
-        }*/
+        }
         //存二维码图片的地址
         String path = request.getSession().getServletContext().getRealPath("upload");
-        return iOrderService.pay(orderNo, 1, path);
+        return iOrderService.pay(orderNo, user.getId(), path);
     }
-    @RequestMapping(value = "alipay_callback.html", method = RequestMethod.POST)
+    @RequestMapping(value = "alipay_callback.json", method = RequestMethod.POST)
     @ResponseBody
     public Object alipayCallback(HttpServletRequest request){
         Map<String, String> params = Maps.newHashMap();
@@ -120,9 +120,9 @@ public class OrderController {
         //验证回调的正确性，来源是否是支付宝，避免重复回调
         params.remove("sign_type");
         try {
-            boolean alipayRSACheckedV2 = AlipaySignature.rsaCheckV2(params, Configs.getPublicKey(), "utf-8", Configs.getSignType());
+            boolean alipayRSACheckedV2 = AlipaySignature.rsaCheckV2(params, Configs.getAlipayPublicKey(), "utf-8", Configs.getSignType());
             if (!alipayRSACheckedV2){
-                return ServerResponse.createByErrorMessage("请停止非法请求！！！");
+                return ServerResponse.createByErrorMessage("RSA错误！！！");
             }
         } catch (AlipayApiException e) {
             logger.error("支付宝回调失败");
@@ -135,7 +135,7 @@ public class OrderController {
         }
         return Const.AlipayCallback.RESPONSE_FAILED;
     }
-    @RequestMapping(value = "query_order_pay_status.html", method = RequestMethod.GET)
+    @RequestMapping(value = "query_order_pay_status.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<Boolean> queryOrderPayStatus(HttpSession session, Long orderNo){
 /*        User user = (User)session.getAttribute(Const.CURRENT_USER);

@@ -5,20 +5,17 @@ import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.demo.trade.config.Configs;
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
-import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
 import com.alipay.demo.trade.model.builder.AlipayTradePrecreateRequestBuilder;
-import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
-import com.alipay.demo.trade.service.impl.AlipayMonitorServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
-import com.alipay.demo.trade.service.impl.AlipayTradeWithHBServiceImpl;
 import com.alipay.demo.trade.utils.ZxingUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.yykj.mall.common.Const;
+import com.yykj.mall.common.GenericBuilder;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.dao.*;
@@ -28,16 +25,18 @@ import com.yykj.mall.util.BigDecimalUtil;
 import com.yykj.mall.util.DateTimeUtil;
 import com.yykj.mall.util.FTPUtil;
 import com.yykj.mall.util.PropertiesUtil;
-import com.yykj.mall.vo.OrderItemVo;
-import com.yykj.mall.vo.OrderProductVo;
-import com.yykj.mall.vo.OrderVo;
-import com.yykj.mall.vo.ShippingVo;
+import com.yykj.mall.dto.OrderDTO;
+import com.yykj.mall.dto.OrderItemDTO;
+import com.yykj.mall.dto.OrderProductDTO;
+import com.yykj.mall.dto.ShippingDTO;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,12 +73,14 @@ public class OrderServiceImpl implements IOrderService {
     private static AlipayTradeService tradeService;
 
     static {
-        /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
-         *  Configs会读取classpath下的zfbinfo.properties文件配置信息，如果找不到该文件则确认该文件是否在classpath目录
+        /**
+         * 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
+         *  Configs会读取classpath下的alipay.properties文件配置信息，如果找不到该文件则确认该文件是否在classpath目录
          */
-        Configs.init("zfbinfo.properties");
+        Configs.init("alipay.properties");
 
-        /** 使用Configs提供的默认参数
+        /**
+         * 使用Configs提供的默认参数
          *  AlipayTradeService可以使用单例或者为静态成员对象，不需要反复new
          */
         tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
@@ -88,7 +89,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public ServerResponse getCartCheckedProduct(Integer userId){
-        OrderProductVo orderProductVo = new OrderProductVo();
+
         //从购物车中获取数据
 
         List<Cart> cartList = cartMapper.selectCheckedByUserId(userId);
@@ -98,17 +99,19 @@ public class OrderServiceImpl implements IOrderService {
         }
         List<OrderItem> orderItemList =( List<OrderItem> ) serverResponse.getData();
 
-        List<OrderItemVo> orderItemVoList = Lists.newArrayList();
+        List<OrderItemDTO> orderItemDTOList = Lists.newArrayList();
 
         BigDecimal payment = new BigDecimal("0");
         for(OrderItem orderItem : orderItemList){
             payment = BigDecimalUtil.add(payment.doubleValue(),orderItem.getTotalPrice().doubleValue());
-            orderItemVoList.add(assembleOrderItemVo(orderItem));
+            orderItemDTOList.add(assembleOrderItemDTO(orderItem));
         }
-        orderProductVo.setProductTotalPrice(payment);
-        orderProductVo.setOrderItemVoList(orderItemVoList);
-        orderProductVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
-        return ServerResponse.createBySuccess(orderProductVo);
+        OrderProductDTO orderProductDTO = GenericBuilder.of(OrderProductDTO::new)
+                .with(OrderProductDTO::setProductTotalPrice, payment)
+                .with(OrderProductDTO::setOrderItemDTOList, orderItemDTOList)
+                .with(OrderProductDTO::setImageHost, PropertiesUtil.getProperty("ftp.server.http.prefix"))
+                .build();
+        return ServerResponse.createBySuccess(orderProductDTO);
     }
 
     @Override
@@ -131,6 +134,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public ServerResponse create(Integer userId, Integer shippingId){
 
         List<Cart> cartList = cartMapper.selectCheckedByUserId(userId);
@@ -160,18 +164,18 @@ public class OrderServiceImpl implements IOrderService {
         //清空购物车
         this.cleanCart(cartList);
 
-        OrderVo orderVo = assembleOrderVo(order, orderItemList);
+        OrderDTO orderDTO = assembleOrderDTO(order, orderItemList);
 
-        return ServerResponse.createBySuccess(orderVo);
+        return ServerResponse.createBySuccess(orderDTO);
     }
 
     @Override
-    public ServerResponse<OrderVo> getDetail(Integer userId,Long orderNo){
+    public ServerResponse<OrderDTO> getDetail(Integer userId, Long orderNo){
         Order order = orderMapper.selectByOrderNoAndUserId(orderNo, userId);
         if(order != null){
             List<OrderItem> orderItemList = orderItemMapper.selectByOrderNoAndUserId(orderNo,userId);
-            OrderVo orderVo = assembleOrderVo(order,orderItemList);
-            return ServerResponse.createBySuccess(orderVo);
+            OrderDTO orderDTO = assembleOrderDTO(order,orderItemList);
+            return ServerResponse.createBySuccess(orderDTO);
         }
         return  ServerResponse.createByErrorMessage("未有找到该订单！");
     }
@@ -180,14 +184,14 @@ public class OrderServiceImpl implements IOrderService {
     public ServerResponse<PageInfo> getList(Integer userId, int pageNum, int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         List<Order> orderList = orderMapper.selectByUserId(userId);
-        List<OrderVo> orderVoList = assembleOrderVoList(orderList,userId);
-        PageInfo pageResult = new PageInfo(orderVoList);
-//        pageResult.setList(orderVoList);
+        List<OrderDTO> orderDTOList = assembleOrderDTOList(orderList,userId);
+        PageInfo pageResult = new PageInfo(orderDTOList);
+//        pageResult.setList(orderDTOList);
         return ServerResponse.createBySuccess(pageResult);
     }
 
-    private List<OrderVo> assembleOrderVoList(List<Order> orderList,Integer userId){
-        List<OrderVo> orderVoList = Lists.newArrayList();
+    private List<OrderDTO> assembleOrderDTOList(List<Order> orderList, Integer userId){
+        List<OrderDTO> orderDTOList = Lists.newArrayList();
         for(Order order : orderList){
             List<OrderItem>  orderItemList;
             if(userId == null){
@@ -196,76 +200,54 @@ public class OrderServiceImpl implements IOrderService {
             }else{
                 orderItemList = orderItemMapper.selectByOrderNoAndUserId(order.getOrderNo(),userId);
             }
-            OrderVo orderVo = assembleOrderVo(order,orderItemList);
-            orderVoList.add(orderVo);
+            OrderDTO orderDTO = assembleOrderDTO(order,orderItemList);
+            orderDTOList.add(orderDTO);
         }
-        return orderVoList;
+        return orderDTOList;
     }
 
-    private OrderVo assembleOrderVo(Order order, List<OrderItem> orderItemList){
-        OrderVo orderVo = new OrderVo();
-        orderVo.setOrderNo(order.getOrderNo());
-        orderVo.setPayment(order.getPayment());
-        orderVo.setPaymentType(order.getPaymentType());
-        orderVo.setPaymentTypeDesc(Const.PaymentTypeEnum.codeOf(order.getPaymentType()).getValue());
+    private OrderDTO assembleOrderDTO(Order order, List<OrderItem> orderItemList){
+        OrderDTO orderDTO = new OrderDTO();
+        BeanUtils.copyProperties(order, orderDTO);
 
-        orderVo.setPostage(order.getPostage());
-        orderVo.setStatus(order.getStatus());
-        orderVo.setStatusDesc(Const.OrderStatusEnum.codeOf(order.getStatus()).getValue());
+        orderDTO.setPaymentTypeDesc(Const.PaymentTypeEnum.codeOf(order.getPaymentType()).getValue());
+        orderDTO.setStatusDesc(Const.OrderStatusEnum.codeOf(order.getStatus()).getValue());
 
-        orderVo.setShippingId(order.getShippingId());
+        orderDTO.setPaymentTime(DateTimeUtil.dateToString(order.getPaymentTime()));
+        orderDTO.setSendTime(DateTimeUtil.dateToString(order.getSendTime()));
+        orderDTO.setEndTime(DateTimeUtil.dateToString(order.getEndTime()));
+        orderDTO.setCreateTime(DateTimeUtil.dateToString(order.getCreateTime()));
+        orderDTO.setCloseTime(DateTimeUtil.dateToString(order.getCloseTime()));
+        orderDTO.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
+
         Shipping shipping = shippingMapper.selectByPrimaryKey(order.getShippingId());
         if(shipping != null){
-            orderVo.setReceiverName(shipping.getReceiverName());
-            orderVo.setShippingVo(assembleShippingVo(shipping));
+            orderDTO.setReceiverName(shipping.getReceiverName());
+            orderDTO.setShippingDTO(assembleShippingDTO(shipping));
         }
-
-        orderVo.setPaymentTime(DateTimeUtil.dateToString(order.getPaymentTime()));
-        orderVo.setSendTime(DateTimeUtil.dateToString(order.getSendTime()));
-        orderVo.setEndTime(DateTimeUtil.dateToString(order.getEndTime()));
-        orderVo.setCreateTime(DateTimeUtil.dateToString(order.getCreateTime()));
-        orderVo.setCloseTime(DateTimeUtil.dateToString(order.getCloseTime()));
-
-
-        orderVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
-
-
-        List<OrderItemVo> orderItemVoList = Lists.newArrayList();
+        List<OrderItemDTO> orderItemDTOList = Lists.newArrayList();
 
         for(OrderItem orderItem : orderItemList){
-            OrderItemVo orderItemVo = assembleOrderItemVo(orderItem);
-            orderItemVoList.add(orderItemVo);
+            OrderItemDTO orderItemDTO = assembleOrderItemDTO(orderItem);
+            orderItemDTOList.add(orderItemDTO);
         }
-        orderVo.setOrderItemVoList(orderItemVoList);
-        return orderVo;
+        orderDTO.setOrderItemDTOList(orderItemDTOList);
+        return orderDTO;
     }
 
 
-    private OrderItemVo assembleOrderItemVo(OrderItem orderItem){
-        OrderItemVo orderItemVo = new OrderItemVo();
-        orderItemVo.setOrderNo(orderItem.getOrderNo());
-        orderItemVo.setProductId(orderItem.getProductId());
-        orderItemVo.setProductName(orderItem.getProductName());
-        orderItemVo.setProductImage(orderItem.getProductImage());
-        orderItemVo.setCurrentUnitPrice(orderItem.getCurrentUnitPrice());
-        orderItemVo.setQuantity(orderItem.getQuantity());
-        orderItemVo.setTotalPrice(orderItem.getTotalPrice());
+    private OrderItemDTO assembleOrderItemDTO(OrderItem orderItem){
+        OrderItemDTO orderItemDTO = new OrderItemDTO();
+        BeanUtils.copyProperties(orderItem, orderItemDTO);
 
-        orderItemVo.setCreateTime(DateTimeUtil.dateToString(orderItem.getCreateTime()));
-        return orderItemVo;
+        orderItemDTO.setCreateTime(DateTimeUtil.dateToString(orderItem.getCreateTime()));
+        return orderItemDTO;
     }
 
-    private ShippingVo assembleShippingVo(Shipping shipping){
-        ShippingVo shippingVo = new ShippingVo();
-        shippingVo.setReceiverName(shipping.getReceiverName());
-        shippingVo.setReceiverAddress(shipping.getReceiverAddress());
-        shippingVo.setReceiverProvince(shipping.getReceiverProvince());
-        shippingVo.setReceiverCity(shipping.getReceiverCity());
-        shippingVo.setReceiverDistrict(shipping.getReceiverDistrict());
-        shippingVo.setReceiverMobile(shipping.getReceiverMobile());
-        shippingVo.setReceiverZip(shipping.getReceiverZip());
-        shippingVo.setReceiverPhone(shippingVo.getReceiverPhone());
-        return shippingVo;
+    private ShippingDTO assembleShippingDTO(Shipping shipping){
+        ShippingDTO shippingDTO = new ShippingDTO();
+        BeanUtils.copyProperties(shipping, shippingDTO);
+        return shippingDTO;
     }
 
     private void cleanCart(List<Cart> cartList){
@@ -285,16 +267,17 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     private Order assembleOrder(Integer userId, Integer shippingId, BigDecimal payment){
-        Order order = new Order();
-        long orderNo = this.generateOrderNo();
-        order.setOrderNo(orderNo);
-        order.setStatus(Const.OrderStatusEnum.UNPAID.getCode());
-        order.setPostage(0);
-        order.setPaymentType(Const.PaymentTypeEnum.ONLINE_PAY.getCode());
-        order.setPayment(payment);
 
-        order.setUserId(userId);
-        order.setShippingId(shippingId);
+        long orderNo = this.generateOrderNo();
+        Order order = GenericBuilder.of(Order::new)
+                .with(Order::setOrderNo, orderNo)
+                .with(Order::setStatus, Const.OrderStatusEnum.UNPAID.getCode())
+                .with(Order::setPostage, 0)
+                .with(Order::setPaymentType, Const.PaymentTypeEnum.ONLINE_PAY.getCode())
+                .with(Order::setPayment, payment)
+                .with(Order::setUserId, userId)
+                .with(Order::setShippingId, shippingId)
+                .build();
         //发货时间等等
         //付款时间等等
         int res = orderMapper.insert(order);
@@ -319,8 +302,8 @@ public class OrderServiceImpl implements IOrderService {
 
     private ServerResponse<List<OrderItem>> getCartOrderItem(List<Cart> cartList){
         List<OrderItem> orderItemList = Lists.newArrayList();
-        if (CollectionUtils.isEmpty(orderItemList)){
-            return ServerResponse.createByErrorMessage("购物车为空！");
+        if (CollectionUtils.isEmpty(cartList)){
+            return ServerResponse.createByErrorMessage("购物车中已选中商品为空！");
         }
         //校验购物车数据的正确性，包括商品的状态和数量
         OrderItem orderItem;
@@ -334,14 +317,15 @@ public class OrderServiceImpl implements IOrderService {
             if (cartItem.getQuantity() > product.getStock()){
                 return ServerResponse.createByErrorMessage("商品" + product.getName() + "库存不足！");
             }
-            orderItem = new OrderItem();
-            orderItem.setUserId(cartItem.getUserId());
-            orderItem.setProductId(product.getId());
-            orderItem.setProductName(product.getName());
-            orderItem.setProductImage(product.getMainImage());
-            orderItem.setCurrentUnitPrice(product.getPrice());
-            orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setTotalPrice(BigDecimalUtil.multiply(product.getPrice().doubleValue(),cartItem.getQuantity()));
+            orderItem = GenericBuilder.of(OrderItem::new)
+                    .with(OrderItem::setUserId, cartItem.getUserId())
+                    .with(OrderItem::setProductId, product.getId())
+                    .with(OrderItem::setProductName, product.getName())
+                    .with(OrderItem::setProductImage, product.getMainImage())
+                    .with(OrderItem::setCurrentUnitPrice, product.getPrice())
+                    .with(OrderItem::setQuantity, cartItem.getQuantity())
+                    .with(OrderItem::setTotalPrice, BigDecimalUtil.multiply(product.getPrice().doubleValue(),cartItem.getQuantity()))
+                    .build();
             orderItemList.add(orderItem);
         }
         return ServerResponse.createBySuccess(orderItemList);
@@ -420,7 +404,7 @@ public class OrderServiceImpl implements IOrderService {
                 log.info("支付宝预下单成功: )");
 
                 AlipayTradePrecreateResponse response = result.getResponse();
-                dumpResponse(response);
+                printResponse(response);
 
                 File file = new File(path);
                 if (!file.exists()){
@@ -458,7 +442,7 @@ public class OrderServiceImpl implements IOrderService {
 
 
     // 简单打印应答
-    private void dumpResponse(AlipayResponse response) {
+    private void printResponse(AlipayResponse response) {
         if (response != null) {
             log.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
             if (StringUtils.isNotEmpty(response.getSubCode())) {
@@ -470,6 +454,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public ServerResponse alipayCallback(Map<String, String> params){
         Long orderNo = Long.parseLong(params.get("out_trade_no"));
         Order order = orderMapper.selectByOrderNo(orderNo);
@@ -478,21 +463,25 @@ public class OrderServiceImpl implements IOrderService {
         }
         String tradeNo = params.get("trade_no");
         String tradeStatus = params.get("trade_status");
+        log.info("交易状态：" + tradeStatus);
         if (order.getStatus() >= Const.OrderStatusEnum.PAID.getCode()){
             return ServerResponse.createByErrorMessage("支付宝重复调用");
         }
+
         if (Const.AlipayCallback.TRADE_STATUS_TRADE_SUCCESS.equals(tradeStatus)){
+            log.info("支付成功");
             order.setPaymentTime(DateTimeUtil.stringToDate(params.get("gmt_payment")));
             order.setStatus(Const.OrderStatusEnum.PAID.getCode());
             orderMapper.updateByPrimaryKeySelective(order);
         }
-        PayInfo payInfo = new PayInfo();
-        payInfo.setUserId(order.getId());
-        payInfo.setOrderNo(order.getOrderNo());
-        payInfo.setPayPlatform(Const.PayPlatformEnum.ALIPAY.getCode());
-        payInfo.setPlatformNumber(tradeNo);
-        payInfo.setPlatformStatus(tradeStatus);
-
+        PayInfo payInfo = GenericBuilder.of(PayInfo::new)
+                .with(PayInfo::setUserId, order.getId())
+                .with(PayInfo::setOrderNo, order.getOrderNo())
+                .with(PayInfo::setPayPlatform, Const.PayPlatformEnum.ALIPAY.getCode())
+                .with(PayInfo::setPlatformNumber, tradeNo)
+                .with(PayInfo::setPlatformStatus, tradeStatus)
+                .build();
+        log.info("支付信息：" + payInfo);
         payInfoMapper.insert(payInfo);
         //TODO
         return ServerResponse.createBySuccess();
@@ -512,19 +501,19 @@ public class OrderServiceImpl implements IOrderService {
     public ServerResponse<PageInfo> manageList(int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         List<Order> orderList = orderMapper.selectAll();
-        List<OrderVo> orderVoList = this.assembleOrderVoList(orderList,null);
+        List<OrderDTO> orderDTOList = this.assembleOrderDTOList(orderList,null);
         PageInfo pageResult = new PageInfo(orderList);
-        pageResult.setList(orderVoList);
+        pageResult.setList(orderDTOList);
         return ServerResponse.createBySuccess(pageResult);
     }
 
     @Override
-    public ServerResponse<OrderVo> manageDetail(Long orderNo){
+    public ServerResponse<OrderDTO> manageDetail(Long orderNo){
         Order order = orderMapper.selectByOrderNo(orderNo);
         if(order != null){
             List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(orderNo);
-            OrderVo orderVo = assembleOrderVo(order,orderItemList);
-            return ServerResponse.createBySuccess(orderVo);
+            OrderDTO orderDTO = assembleOrderDTO(order,orderItemList);
+            return ServerResponse.createBySuccess(orderDTO);
         }
         return ServerResponse.createByErrorMessage("订单不存在");
     }
@@ -535,10 +524,10 @@ public class OrderServiceImpl implements IOrderService {
         Order order = orderMapper.selectByOrderNo(orderNo);
         if(order != null){
             List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(orderNo);
-            OrderVo orderVo = assembleOrderVo(order,orderItemList);
+            OrderDTO orderDTO = assembleOrderDTO(order,orderItemList);
 
             PageInfo pageResult = new PageInfo(Lists.newArrayList(order));
-            pageResult.setList(Lists.newArrayList(orderVo));
+            pageResult.setList(Lists.newArrayList(orderDTO));
             return ServerResponse.createBySuccess(pageResult);
         }
         return ServerResponse.createByErrorMessage("订单不存在");
