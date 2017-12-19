@@ -1,4 +1,4 @@
-package com.yykj.mall.vo;
+package com.yykj.mall.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Lee on 2017/8/29.
  */
-public class OrderVo {
+public class OrderDTO {
 
     private Long orderNo;
 
@@ -34,20 +34,20 @@ public class OrderVo {
     private String createTime;
 
     //订单的明细
-    private List<OrderItemVo> orderItemVoList;
+    private List<OrderItemDTO> orderItemDTOList;
 
     private String imageHost;
     private Integer shippingId;
     private String receiverName;
 
-    private ShippingVo shippingVo;
+    private ShippingDTO shippingDTO;
 
-    public List<OrderItemVo> getOrderItemVoList() {
-        return orderItemVoList;
+    public List<OrderItemDTO> getOrderItemDTOList() {
+        return orderItemDTOList;
     }
 
-    public void setOrderItemVoList(List<OrderItemVo> orderItemVoList) {
-        this.orderItemVoList = orderItemVoList;
+    public void setOrderItemDTOList(List<OrderItemDTO> orderItemDTOList) {
+        this.orderItemDTOList = orderItemDTOList;
     }
 
     public String getImageHost() {
@@ -74,12 +74,12 @@ public class OrderVo {
         this.receiverName = receiverName;
     }
 
-    public ShippingVo getShippingVo() {
-        return shippingVo;
+    public ShippingDTO getShippingDTO() {
+        return shippingDTO;
     }
 
-    public void setShippingVo(ShippingVo shippingVo) {
-        this.shippingVo = shippingVo;
+    public void setShippingDTO(ShippingDTO shippingDTO) {
+        this.shippingDTO = shippingDTO;
     }
 
     public Long getOrderNo() {

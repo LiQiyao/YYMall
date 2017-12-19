@@ -1,4 +1,4 @@
-package com.yykj.mall.vo;
+package com.yykj.mall.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -6,19 +6,19 @@ import java.util.List;
 /**
  * Created by Lee on 2017/8/20.
  */
-public class CartVo {
+public class CartDTO {
 
-    private List<CartProductVo> cartProductVoList;
+    private List<CartProductDTO> cartProductDTOList;
     private BigDecimal cartTotalPrice;
     private Boolean allChecked;
     private String imageHost;
 
-    public List<CartProductVo> getCartProductVoList() {
-        return cartProductVoList;
+    public List<CartProductDTO> getCartProductDTOList() {
+        return cartProductDTOList;
     }
 
-    public void setCartProductVoList(List<CartProductVo> cartProductVoList) {
-        this.cartProductVoList = cartProductVoList;
+    public void setCartProductDTOList(List<CartProductDTO> cartProductDTOList) {
+        this.cartProductDTOList = cartProductDTOList;
     }
 
     public BigDecimal getCartTotalPrice() {

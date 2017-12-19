@@ -1,22 +1,22 @@
 package com.yykj.mall.service;
 
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.vo.CartVo;
+import com.yykj.mall.dto.CartDTO;
 
 /**
  * Created by Lee on 2017/8/21.
  */
 public interface ICartService {
 
-    ServerResponse<CartVo> add(Integer userId, Integer productId, Integer count);
+    ServerResponse<CartDTO> add(Integer userId, Integer productId, Integer count);
 
-    ServerResponse<CartVo> update(Integer userId, Integer productId, Integer count);
+    ServerResponse<CartDTO> update(Integer userId, Integer productId, Integer count);
 
-    ServerResponse<CartVo> deleteProducts(Integer userId, String productIds);
+    ServerResponse<CartDTO> deleteProducts(Integer userId, String productIds);
 
-    ServerResponse<CartVo> list(Integer userId);
+    ServerResponse<CartDTO> list(Integer userId);
 
-    ServerResponse<CartVo> checkOrUnCheck(Integer userId, Integer productId, Integer checked);
+    ServerResponse<CartDTO> checkOrUnCheck(Integer userId, Integer productId, Integer checked);
 
     ServerResponse<Integer> getProductCount(Integer userId);
 }

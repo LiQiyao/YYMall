@@ -5,7 +5,7 @@ import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.pojo.User;
 import com.yykj.mall.service.ICartService;
-import com.yykj.mall.vo.CartVo;
+import com.yykj.mall.dto.CartDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class CartController {
 
     @RequestMapping(value = "add.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<CartVo> add(HttpSession session, Integer count, Integer productId){
+    public ServerResponse<CartDTO> add(HttpSession session, Integer count, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
@@ -36,7 +36,7 @@ public class CartController {
 
     @RequestMapping(value = "list.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse<CartVo> list(HttpSession session){
+    public ServerResponse<CartDTO> list(HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
@@ -46,7 +46,7 @@ public class CartController {
 
     @RequestMapping(value = "update.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<CartVo> update(HttpSession session, Integer count, Integer productId){
+    public ServerResponse<CartDTO> update(HttpSession session, Integer count, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
@@ -54,9 +54,9 @@ public class CartController {
         return iCartService.update(user.getId(),productId,count);
     }
 
-    @RequestMapping(value = "delete_products.json", method = RequestMethod.POST)
+    @RequestMapping(value = "products/delete.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<CartVo> delete_products(HttpSession session, String productIds){
+    public ServerResponse<CartDTO> delete_products(HttpSession session, String productIds){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
@@ -66,7 +66,7 @@ public class CartController {
 
     @RequestMapping(value = "check_all.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<CartVo> checkAll(HttpSession session){
+    public ServerResponse<CartDTO> checkAll(HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
@@ -76,7 +76,7 @@ public class CartController {
 
     @RequestMapping(value = "un_check_all.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<CartVo> unCheckAll(HttpSession session){
+    public ServerResponse<CartDTO> unCheckAll(HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
@@ -86,7 +86,7 @@ public class CartController {
 
     @RequestMapping(value = "check.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<CartVo> check(HttpSession session, Integer productId){
+    public ServerResponse<CartDTO> check(HttpSession session, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
@@ -96,7 +96,7 @@ public class CartController {
 
     @RequestMapping(value = "un_check.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<CartVo> unCheck(HttpSession session, Integer productId){
+    public ServerResponse<CartDTO> unCheck(HttpSession session, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());

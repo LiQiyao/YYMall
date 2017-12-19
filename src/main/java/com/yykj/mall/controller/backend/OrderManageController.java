@@ -1,12 +1,9 @@
 package com.yykj.mall.controller.backend;
 
 import com.github.pagehelper.PageInfo;
-import com.yykj.mall.common.Const;
-import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.service.IOrderService;
-import com.yykj.mall.service.IUserService;
-import com.yykj.mall.vo.OrderVo;
+import com.yykj.mall.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +33,7 @@ public class OrderManageController {
 
     @RequestMapping("detail.json")
     @ResponseBody
-    public ServerResponse<OrderVo> orderDetail(HttpSession session, Long orderNo){
+    public ServerResponse<OrderDTO> orderDetail(HttpSession session, Long orderNo){
 
         return iOrderService.manageDetail(orderNo);
 

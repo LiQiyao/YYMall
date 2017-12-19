@@ -3,12 +3,10 @@ package com.yykj.mall.controller.portal;
 import com.github.pagehelper.PageInfo;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.service.IProductService;
-import com.yykj.mall.vo.ProductDetailVo;
+import com.yykj.mall.dto.ProductDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /**
  * Created by Lee on 2017/8/19.
@@ -22,7 +20,7 @@ public class ProductController {
 
     @RequestMapping(value = "{productId}/detail.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse<ProductDetailVo> detail(@PathVariable Integer productId){
+    public ServerResponse<ProductDetailDTO> detail(@PathVariable Integer productId){
         return iProductService.getProductDetail(productId);
     }
 
