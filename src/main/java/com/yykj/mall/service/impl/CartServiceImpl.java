@@ -3,6 +3,7 @@ package com.yykj.mall.service.impl;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.yykj.mall.common.Const;
+import com.yykj.mall.common.GenericBuilder;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.dao.CartMapper;
@@ -17,6 +18,7 @@ import com.yykj.mall.vo.CartVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,6 +36,7 @@ public class CartServiceImpl implements ICartService {
     private ProductMapper productMapper;
 
     @Override
+    @Transactional
     public ServerResponse<CartVo> add(Integer userId, Integer productId, Integer count){
         if (productId == null || count == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -41,11 +44,12 @@ public class CartServiceImpl implements ICartService {
         Cart cart = cartMapper.selectByUserIdAndProductId(userId, productId);
         if (cart == null){
             //该商品未添加到数据库，需要添加进去
-            cart = new Cart();
-            cart.setQuantity(count);
-            cart.setChecked(Const.Cart.CHECKED);
-            cart.setUserId(userId);
-            cart.setProductId(productId);
+            cart = GenericBuilder.of(Cart::new)
+                    .with(Cart::setUserId, userId)
+                    .with(Cart::setProductId, productId)
+                    .with(Cart::setChecked, Const.Cart.CHECKED)
+                    .with(Cart::setQuantity, count)
+                    .build();
             cartMapper.insert(cart);
         } else {
             //商品已经存在于购物车
@@ -56,6 +60,7 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
+    @Transactional
     public ServerResponse<CartVo> update(Integer userId, Integer productId, Integer count){
         if (count == null || productId == null || count == 0){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -72,6 +77,7 @@ public class CartServiceImpl implements ICartService {
 
     //允许批量删除商品
     @Override
+    @Transactional
     public ServerResponse<CartVo> deleteProducts(Integer userId, String productIds){
         List<String> productIdList = Splitter.on(",").splitToList(productIds);
         if (CollectionUtils.isEmpty(productIdList)){
@@ -102,27 +108,28 @@ public class CartServiceImpl implements ICartService {
     }
 
     private CartVo getLimitedCartVo(Integer userId){
-        CartVo cartVo = new CartVo();
+
         List<Cart> cartList = cartMapper.selectByUserId(userId);
         List<CartProductVo> cartProductVoList = Lists.newArrayList();
         BigDecimal cartTotalPrice = new BigDecimal("0");//商业计算，使用参数为String类型构造器
 
         if (CollectionUtils.isNotEmpty(cartList)){
             for (Cart cartItem : cartList){
-                CartProductVo cartProductVo = new CartProductVo();
-                cartProductVo.setId(cartItem.getId());
-                cartProductVo.setUserId(userId);
-                cartProductVo.setProductId(cartItem.getProductId());
+
 
                 Product product = productMapper.selectByPrimaryKey(cartItem.getProductId());
 
                 if (product != null) {
-                    cartProductVo.setProductMainImage(product.getMainImage());
-                    cartProductVo.setProductName(product.getName());
-                    cartProductVo.setProductSubtitle(product.getSubtitle());
-                    cartProductVo.setProductStatus(product.getStatus());
-                    cartProductVo.setProductStock(product.getStock());
-
+                    CartProductVo cartProductVo = GenericBuilder.of(CartProductVo::new)
+                            .with(CartProductVo::setId, cartItem.getId())
+                            .with(CartProductVo::setUserId, cartItem.getProductId())
+                            .with(CartProductVo::setProductId, cartItem.getProductId())
+                            .with(CartProductVo::setProductMainImage, product.getMainImage())
+                            .with(CartProductVo::setProductName, product.getName())
+                            .with(CartProductVo::setProductSubtitle, product.getSubtitle())
+                            .with(CartProductVo::setProductStatus, product.getStatus())
+                            .with(CartProductVo::setProductStock, product.getStock())
+                            .build();
                     //判断库存是否足够
                     int buyLimitCount;
                     if (product.getStock() >= cartItem.getQuantity()){
@@ -130,13 +137,15 @@ public class CartServiceImpl implements ICartService {
                         buyLimitCount = cartItem.getQuantity();
                         cartProductVo.setLimitQuantity(Const.Cart.LIMIT_QUANTITY_SUCCESS);
                     } else {
+                        //如果库存不够，则把库存改成商品库存
                         buyLimitCount = product.getStock();
                         cartProductVo.setLimitQuantity(Const.Cart.LIMIT_QUANTITY_FAIL);
 
                         //更新数据库中购物车quantity信息
-                        Cart cart = new Cart();
-                        cart.setId(cartItem.getId());
-                        cart.setQuantity(buyLimitCount);
+                        Cart cart = GenericBuilder.of(Cart::new)
+                                .with(Cart::setId, cartItem.getId())
+                                .with(Cart::setQuantity, cartItem.getQuantity())
+                                .build();
                         cartMapper.updateByPrimaryKeySelective(cart);
                     }
                     cartProductVo.setQuantity(buyLimitCount);
@@ -152,10 +161,13 @@ public class CartServiceImpl implements ICartService {
 
             }
         }
-        cartVo.setCartProductVoList(cartProductVoList);
-        cartVo.setCartTotalPrice(cartTotalPrice);
-        cartVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
-        cartVo.setAllChecked(getAllCheckedStatus(userId));
+
+        CartVo cartVo = GenericBuilder.of(CartVo::new)
+                .with(CartVo::setCartProductVoList, cartProductVoList)
+                .with(CartVo::setCartTotalPrice, cartTotalPrice)
+                .with(CartVo::setImageHost, PropertiesUtil.getProperty("ftp.server.http.prefix"))
+                .with(CartVo::setAllChecked, getAllCheckedStatus(userId))
+                .build();
         return cartVo;
     }
 

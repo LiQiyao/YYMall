@@ -189,7 +189,7 @@ public class ProductServiceImpl implements IProductService {
         if (StringUtils.isNotBlank(keyword)){
             keyword = new StringBuffer().append("%").append(keyword).append("%").toString();
         }
-        logger.info("bbb" + keyword);
+        logger.info("搜索关键词：" + keyword);
         PageHelper.startPage(pageNum, pageSize);//紧跟在这后面的第一个查询数据库方法会被分页
         if (StringUtils.isNotBlank(orderBy)){
             if (Const.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)){

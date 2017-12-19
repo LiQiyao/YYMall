@@ -2,26 +2,61 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <context:property-placeholder location="classpath*:redis.properties"/>
+    <util:properties id="redis" location="classpath:redis-cluster.properties"/>
     <!-- redis数据源 -->
-    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+<!--    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxIdle" value="${redis.maxIdle}" />
         <property name="maxTotal" value="${redis.maxActive}" />
         <property name="maxWaitMillis" value="${redis.maxWait}" />
         <property name="testOnBorrow" value="${redis.testOnBorrow}" />
     </bean>
-    <!-- Spring-redis连接池管理工厂 -->
+    &lt;!&ndash; Spring-redis连接池管理工厂 &ndash;&gt;
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="${redis.host}" />
         <property name="port" value="${redis.port}" />
         <property name="password" value="${redis.pass}" />
         <property name="timeout" value="${redis.timeout}" />
         <property name="poolConfig" ref="poolConfig" />
+    </bean>-->
+    <!--JedisConnectionFactory -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <constructor-arg index="0">
+            <!-- since spring-data-redis 1.7 -->
+            <bean class="org.springframework.data.redis.connection.RedisClusterConfiguration">
+                <constructor-arg index="0">
+                    <set>
+                        <value>#{redis['redis.redisClusterConfiguration.clusters']}</value>
+                    </set>
+                </constructor-arg>
+
+                <!--
+                    用于 redis.clients.jedis.JedisCluster.JedisCluster(Set<HostAndPort>, int, int, GenericObjectPoolConfig) 第三个参数 maxRedirections
+                    默认值是5
+                    一般当此值设置过大时，容易报：Too many Cluster redirections
+                -->
+                <property name="maxRedirects" value="#{redis['redis.redisClusterConfiguration.maxRedirects']}" />
+            </bean>
+        </constructor-arg>
+
+        <constructor-arg index="1">
+            <bean class="redis.clients.jedis.JedisPoolConfig">
+                <property name="maxIdle" value="#{redis['redis.jedisPoolConfig.maxIdle']}" />
+                <property name="maxTotal" value="#{redis['redis.jedisPoolConfig.maxTotal']}"/>
+                <property name="testOnBorrow" value="#{redis['redis.jedisPoolConfig.testOnBorrow']}" />
+                <property name="testOnReturn" value="#{redis['redis.jedisPoolConfig.testOnReturn']}" />
+                <property name="maxWaitMillis" value="#{redis['redis.jedisPoolConfig.maxWaitMillis']}" />
+                <!-- 新版jedis 不支持这个参数了 -->
+                <!-- <property name="maxWait" value="#{redis['redis.jedisPoolConfig.MaxWait']}" /> -->
+                <!-- <property name="maxActive" value="#{redis['redis.jedisPoolConfig.MaxActive']}" /> -->
+            </bean>
+        </constructor-arg>
     </bean>
 
 </beans>

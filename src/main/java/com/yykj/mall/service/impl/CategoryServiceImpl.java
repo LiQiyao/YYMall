@@ -2,6 +2,7 @@ package com.yykj.mall.service.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.yykj.mall.common.GenericBuilder;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.dao.CategoryMapper;
 import com.yykj.mall.pojo.Category;
@@ -32,10 +33,12 @@ public class CategoryServiceImpl implements ICategoryService {
         if (StringUtils.isBlank(categoryName)){
             return ServerResponse.createByErrorMessage("添加分类参数错误！");
         }
-        Category category = new Category();
-        category.setName(categoryName);
-        category.setParentId(parentId);
-        category.setStatus(true);
+
+        Category category = GenericBuilder.of(Category::new)
+                .with(Category::setName, categoryName)
+                .with(Category::setParentId, parentId)
+                .with(Category::setStatus, true)
+                .build();
         int res = categoryMapper.insertSelective(category);
         if (res > 0){
             return ServerResponse.createBySuccess("添加分类成功！");
@@ -48,9 +51,10 @@ public class CategoryServiceImpl implements ICategoryService {
         if (categoryId == null || StringUtils.isBlank(newCategoryName)){
             ServerResponse.createByErrorMessage("修改分类名称参数错误！");
         }
-        Category category = new Category();
-        category.setId(categoryId);
-        category.setName(newCategoryName);
+        Category category = GenericBuilder.of(Category::new)
+                .with(Category::setId, categoryId)
+                .with(Category::setName, newCategoryName)
+                .build();
         int res = categoryMapper.updateByPrimaryKeySelective(category);
         if (res > 0){
             return ServerResponse.createBySuccessMessage("更新分类名称成功！");

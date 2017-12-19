@@ -52,15 +52,6 @@ public class UserController {
         return iUserService.checkValid(s, type);
     }
 
-    @RequestMapping(value = "info.json", method = RequestMethod.GET)
-    @ResponseBody
-    public ServerResponse<User> getUserInfo(HttpSession session){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user != null){
-            return ServerResponse.createBySuccess(user);
-        }
-        return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户信息！");
-    }
 
     @RequestMapping(value = "/forget_pwd/get_question.json", method = RequestMethod.GET)
     @ResponseBody
@@ -107,7 +98,7 @@ public class UserController {
         return response;
     }
 
-/*    @RequestMapping(value = "get_information.json", method = RequestMethod.POST)
+    @RequestMapping(value = "info.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<User> getInformation(HttpSession session){
         User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
@@ -115,5 +106,5 @@ public class UserController {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "未登录，跳转到登录界面！");
         }
         return iUserService.getInformation(currentUser.getId());
-    }*/
+    }
 }
