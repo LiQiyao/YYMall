@@ -27,6 +27,7 @@
     </bean>-->
     <!--JedisConnectionFactory -->
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="password" value="#{redis['redis.password']}"/>
         <constructor-arg index="0">
             <!-- since spring-data-redis 1.7 -->
             <bean class="org.springframework.data.redis.connection.RedisClusterConfiguration">

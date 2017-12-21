@@ -1,6 +1,7 @@
 package com.yykj.mall.service.impl;
 
 import com.yykj.mall.service.IOrderService;
+import com.yykj.mall.service.IShippingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,12 @@ public class OrderServiceImplTest {
     @Autowired
     private IOrderService orderService;
 
-
+    @Autowired
+    private IShippingService shippingService;
 
     @Test
     public void getCartCheckedProduct() throws Exception {
-        System.out.println(orderService.getCartCheckedProduct(21));
+        System.out.println(shippingService.list(26, 1, 10));
     }
 
 }

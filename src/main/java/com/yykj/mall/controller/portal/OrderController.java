@@ -35,7 +35,7 @@ public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    @RequestMapping(value = "create.json", method = RequestMethod.GET)
+    @RequestMapping(value = "create.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse create(HttpSession session, Integer shippingId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -68,7 +68,7 @@ public class OrderController {
 
     @RequestMapping(value = "detail.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse detail(HttpSession session,Long orderNo){
+    public ServerResponse detail(HttpSession session, Long orderNo){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
@@ -91,7 +91,7 @@ public class OrderController {
 
 
 
-    @RequestMapping(value = "pay.json", method = RequestMethod.POST)
+    @RequestMapping(value = "pay.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse pay(HttpSession session, Long orderNo, HttpServletRequest request){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -135,15 +135,15 @@ public class OrderController {
         }
         return Const.AlipayCallback.RESPONSE_FAILED;
     }
-    @RequestMapping(value = "query_order_pay_status.json", method = RequestMethod.GET)
+    @RequestMapping(value = "pay_status.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<Boolean> queryOrderPayStatus(HttpSession session, Long orderNo){
-/*        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
-        }*/
+        }
         //存二维码图片的地址
-        return iOrderService.queryOrderPayStatus(1, orderNo);
+        return iOrderService.queryOrderPayStatus(user.getId(), orderNo);
     }
 
 

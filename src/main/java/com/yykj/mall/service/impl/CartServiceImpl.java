@@ -122,13 +122,14 @@ public class CartServiceImpl implements ICartService {
                 if (product != null) {
                     CartProductDTO cartProductDTO = GenericBuilder.of(CartProductDTO::new)
                             .with(CartProductDTO::setId, cartItem.getId())
-                            .with(CartProductDTO::setUserId, cartItem.getProductId())
+                            .with(CartProductDTO::setUserId, userId)
                             .with(CartProductDTO::setProductId, cartItem.getProductId())
                             .with(CartProductDTO::setProductMainImage, product.getMainImage())
                             .with(CartProductDTO::setProductName, product.getName())
                             .with(CartProductDTO::setProductSubtitle, product.getSubtitle())
                             .with(CartProductDTO::setProductStatus, product.getStatus())
                             .with(CartProductDTO::setProductStock, product.getStock())
+                            .with(CartProductDTO::setProductPrice, product.getPrice())
                             .build();
                     //判断库存是否足够
                     int buyLimitCount;

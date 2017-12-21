@@ -102,7 +102,7 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        now(),
+        update_time = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -136,7 +136,7 @@
     where user_id=#{userId} and product_id=#{productId};
   </select>
   <delete id="deleteByUserIdAndProductIds">
-    DELETE FROM cart where user_id=#{userId} and productId IN
+    DELETE FROM cart where user_id=#{userId} and product_id IN
     <foreach collection="productIdList" item="item" index="index" open="(" close=")" separator=",">
       #{item}
     </foreach>
@@ -144,7 +144,7 @@
   <update id="updateCheckedOrUnchecked">
     update cart set checked = #{checked} where user_id=#{userId}
     <if test="productId != null">
-      and productId=#{productId}
+      and product_id=#{productId}
     </if>
   </update>
 
