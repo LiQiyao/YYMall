@@ -1,7 +1,7 @@
 package com.yykj.mall.interceptor;
 
 import com.yykj.mall.common.Const;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +18,7 @@ public class AllInterceptor implements HandlerInterceptor {
         httpServletResponse.setCharacterEncoding("utf-8");
         User user = new User();
         user.setId(26);
-//        httpServletRequest.getSession().setAttribute(Const.CURRENT_USER, user);
+        httpServletRequest.getSession().setAttribute(Const.CURRENT_USER, user);
         return true;
     }
 

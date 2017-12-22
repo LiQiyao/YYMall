@@ -3,7 +3,7 @@ package com.yykj.mall.controller.portal;
 import com.yykj.mall.common.Const;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import com.yykj.mall.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +21,12 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    private IUserService iUserService;
+    private IUserService userService;
 
     @RequestMapping(value = "login.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session){
-        ServerResponse<User> response = iUserService.login(username, password);
+        ServerResponse<User> response = userService.login(username, password);
         if (response.isSuccess()){
             session.setAttribute(Const.CURRENT_USER, response.getData());
         }
@@ -43,33 +43,33 @@ public class UserController {
     @RequestMapping(value = "register.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> register(User user){
-        return iUserService.register(user);
+        return userService.register(user);
     }
 
     @RequestMapping(value = "register_check_valid.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> checkValid(String s, String type){
-        return iUserService.checkValid(s, type);
+        return userService.checkValid(s, type);
     }
 
 
     @RequestMapping(value = "/forget_pwd/get_question.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> forgetGetQuestion(String username){
-        return iUserService.selectQuestion(username);
+        return userService.selectQuestion(username);
     }
 
     //返回一个token,用于重置密码时的校验
     @RequestMapping(value = "/forget_pwd/check_answer.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetCheckAnswer(String username, String question, String answer){
-        return iUserService.checkAnswer(username, question, answer);
+        return userService.checkAnswer(username, question, answer);
     }
 
     @RequestMapping(value = "/forget_pwd/reset_password.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetResetPassword(String username, String newPassword, String token){
-        return iUserService.forgetResetPassword(username, newPassword, token);
+        return userService.forgetResetPassword(username, newPassword, token);
     }
 
     @RequestMapping(value = "reset_password.json", method = RequestMethod.POST)
@@ -79,7 +79,7 @@ public class UserController {
         if (user == null){
             return ServerResponse.createByErrorMessage("用户未登录！");
         }
-        return iUserService.resetPassword(user, newPassword, oldPassword);
+        return userService.resetPassword(user, newPassword, oldPassword);
     }
 
     @RequestMapping(value = "/info/update.json", method = RequestMethod.POST)
@@ -91,7 +91,7 @@ public class UserController {
         }
         newUserInfo.setId(currentUser.getId());
         newUserInfo.setUsername(currentUser.getUsername());//防止横向越权，固定id和username
-        ServerResponse<User> response = iUserService.updateInformation(newUserInfo);
+        ServerResponse<User> response = userService.updateInformation(newUserInfo);
         if (response.isSuccess()){
             session.setAttribute(Const.CURRENT_USER, response.getData());
         }
@@ -105,6 +105,6 @@ public class UserController {
         if (currentUser == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "未登录，跳转到登录界面！");
         }
-        return iUserService.getInformation(currentUser.getId());
+        return userService.getInformation(currentUser.getId());
     }
 }

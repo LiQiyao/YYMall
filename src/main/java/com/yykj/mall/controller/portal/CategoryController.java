@@ -1,7 +1,7 @@
 package com.yykj.mall.controller.portal;
 
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.Category;
+import com.yykj.mall.entity.Category;
 import com.yykj.mall.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

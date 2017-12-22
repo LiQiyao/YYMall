@@ -1,7 +1,7 @@
 package com.yykj.mall.service;
 
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.Category;
+import com.yykj.mall.entity.Category;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@ import com.google.common.collect.Maps;
 import com.yykj.mall.common.Const;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import com.yykj.mall.service.IOrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -31,30 +30,50 @@ import java.util.Map;
 public class OrderController {
 
     @Autowired
-    private IOrderService iOrderService;
+    private IOrderService orderService;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @RequestMapping(value = "create.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse create(HttpSession session, Integer shippingId){
+    public ServerResponse createByCart(HttpSession session, Integer shippingId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iOrderService.create(user.getId(), shippingId);
+        return orderService.createByCart(user.getId(), shippingId);
+    }
+
+    @RequestMapping(value = "immediate_create.json", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse createByProductIdAndCount(HttpSession session, Integer shippingId, Integer productId, Integer count){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if (user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return orderService.createByProductIdAndCount(user.getId(), shippingId, productId, count);
     }
 
     @RequestMapping(value = "cancel.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse cancel(HttpSession session, Long orderNo){
-/*        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
-        }*/
-        return iOrderService.cancel(1, orderNo);
+        }
+        return orderService.cancel(user.getId(), orderNo);
     }
 
+
+    @RequestMapping(value = "selected_product.json", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse getSelectedProduct(HttpSession session, Integer productId, Integer count){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if (user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return orderService.getSelectedProduct(user.getId(), productId, count);
+    }
 
     @RequestMapping(value = "cart-checked-product.json", method = RequestMethod.GET)
     @ResponseBody
@@ -63,7 +82,7 @@ public class OrderController {
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iOrderService.getCartCheckedProduct(user.getId());
+        return orderService.getCartCheckedProduct(user.getId());
     }
 
     @RequestMapping(value = "detail.json", method = RequestMethod.GET)
@@ -73,7 +92,7 @@ public class OrderController {
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iOrderService.getDetail(user.getId(),orderNo);
+        return orderService.getDetail(user.getId(),orderNo);
     }
 
     @RequestMapping(value = "list.json", method = RequestMethod.GET)
@@ -83,7 +102,7 @@ public class OrderController {
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iOrderService.getList(user.getId(),pageNum,pageSize);
+        return orderService.getList(user.getId(),pageNum,pageSize);
     }
 
 
@@ -100,7 +119,7 @@ public class OrderController {
         }
         //存二维码图片的地址
         String path = request.getSession().getServletContext().getRealPath("upload");
-        return iOrderService.pay(orderNo, user.getId(), path);
+        return orderService.pay(orderNo, user.getId(), path);
     }
     @RequestMapping(value = "alipay_callback.json", method = RequestMethod.POST)
     @ResponseBody
@@ -129,7 +148,7 @@ public class OrderController {
         }
         //todo 验证订单各种数据
 
-        ServerResponse serverResponse = iOrderService.alipayCallback(params);
+        ServerResponse serverResponse = orderService.alipayCallback(params);
         if (serverResponse.isSuccess()){
             return Const.AlipayCallback.RESPONSE_SUCCESS;
         }
@@ -143,7 +162,7 @@ public class OrderController {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
         //存二维码图片的地址
-        return iOrderService.queryOrderPayStatus(user.getId(), orderNo);
+        return orderService.queryOrderPayStatus(user.getId(), orderNo);
     }
 
 

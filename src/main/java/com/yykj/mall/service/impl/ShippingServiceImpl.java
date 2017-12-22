@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.dao.ShippingMapper;
-import com.yykj.mall.pojo.Shipping;
+import com.yykj.mall.entity.Shipping;
 import com.yykj.mall.service.IShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

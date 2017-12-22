@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import com.yykj.mall.common.GenericBuilder;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.dao.CategoryMapper;
-import com.yykj.mall.pojo.Category;
+import com.yykj.mall.entity.Category;
 import com.yykj.mall.service.ICategoryService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

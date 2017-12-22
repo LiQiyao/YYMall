@@ -1,10 +1,8 @@
 package com.yykj.mall.controller.backend;
 
-import com.github.pagehelper.StringUtil;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.Product;
+import com.yykj.mall.entity.Product;
 import com.yykj.mall.service.IFileService;
 import com.yykj.mall.service.IProductService;
 import com.yykj.mall.util.PropertiesUtil;
@@ -19,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -30,7 +27,7 @@ import java.util.Map;
 public class ProductManageController{
 
     @Autowired
-    private IProductService iProductService;
+    private IProductService productService;
 
     @Autowired
     private IFileService iFileService;
@@ -38,31 +35,31 @@ public class ProductManageController{
     @RequestMapping(value = "save_or_update.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse saveOrUpdate(Product product){
-        return iProductService.saveOrUpdate(product);
+        return productService.saveOrUpdate(product);
     }
 
     @RequestMapping(value = "set_status.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse setStatus(Integer productId, Integer status){
-        return iProductService.setStatus(productId, status);
+        return productService.setStatus(productId, status);
     }
 
     @RequestMapping(value = "detail.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getDetail(Integer productId){
-        return iProductService.manageProductDetail(productId);
+        return productService.manageProductDetail(productId);
     }
 
     @RequestMapping(value = "list.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
-        return iProductService.getProductList(pageNum, pageSize);
+        return productService.getProductList(pageNum, pageSize);
     }
 
     @RequestMapping(value = "search.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse searchProduct(String productName, Integer productId, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
-        return iProductService.searchProduct(productName, productId, pageNum, pageSize);
+        return productService.searchProduct(productName, productId, pageNum, pageSize);
     }
 
     @RequestMapping(value = "upload.json", method = RequestMethod.POST)

@@ -12,6 +12,7 @@ import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.utils.ZxingUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.yykj.mall.common.Const;
@@ -19,7 +20,7 @@ import com.yykj.mall.common.GenericBuilder;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.dao.*;
-import com.yykj.mall.pojo.*;
+import com.yykj.mall.entity.*;
 import com.yykj.mall.service.IOrderService;
 import com.yykj.mall.util.BigDecimalUtil;
 import com.yykj.mall.util.DateTimeUtil;
@@ -114,6 +115,49 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createBySuccess(orderProductDTO);
     }
 
+    /**
+     * 直接点击购买后，显示预订单页中的商品详情
+     * @param userId
+     * @param productId
+     * @param count
+     * @return
+     */
+    @Override
+    public ServerResponse<OrderProductDTO> getSelectedProduct(Integer userId, Integer productId, Integer count) {
+        if (productId == null || count == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        //校验商品和库存
+        Product product = productMapper.selectByPrimaryKey(productId);
+        if (Const.ProductStatus.ON_SALE.getCode() != product.getStatus()){
+            return ServerResponse.createByErrorMessage("商品" + product.getName() + "已下架！");
+        }
+
+        //校验库存
+        if (count > product.getStock()){
+            return ServerResponse.createByErrorMessage("商品" + product.getName() + "库存不足！");
+        }
+
+        OrderItem orderItem = GenericBuilder.of(OrderItem::new)
+                .with(OrderItem::setUserId, userId)
+                .with(OrderItem::setProductId, product.getId())
+                .with(OrderItem::setProductName, product.getName())
+                .with(OrderItem::setProductImage, product.getMainImage())
+                .with(OrderItem::setCurrentUnitPrice, product.getPrice())
+                .with(OrderItem::setQuantity, count)
+                .with(OrderItem::setTotalPrice, BigDecimalUtil.multiply(product.getPrice().doubleValue(), count))
+                .build();
+        OrderItemDTO orderItemDTO = assembleOrderItemDTO(orderItem);
+        List<OrderItemDTO> orderItemDTOList = Lists.newArrayList();
+        orderItemDTOList.add(orderItemDTO);
+        OrderProductDTO orderProductDTO = GenericBuilder.of(OrderProductDTO::new)
+                .with(OrderProductDTO::setProductTotalPrice, orderItem.getTotalPrice())
+                .with(OrderProductDTO::setOrderItemDTOList, orderItemDTOList)
+                .with(OrderProductDTO::setImageHost, PropertiesUtil.getProperty("ftp.server.http.prefix"))
+                .build();
+        return ServerResponse.createBySuccess(orderProductDTO);
+    }
+
     @Override
     public ServerResponse cancel(Integer userId, Long orderNo){
         Order order = orderMapper.selectByOrderNoAndUserId(orderNo, userId);
@@ -135,7 +179,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     @Transactional
-    public ServerResponse create(Integer userId, Integer shippingId){
+    public ServerResponse createByCart(Integer userId, Integer shippingId){
 
         List<Cart> cartList = cartMapper.selectCheckedByUserId(userId);
 
@@ -164,6 +208,52 @@ public class OrderServiceImpl implements IOrderService {
         //清空购物车
         this.cleanCart(cartList);
 
+        OrderDTO orderDTO = assembleOrderDTO(order, orderItemList);
+
+        return ServerResponse.createBySuccess(orderDTO);
+    }
+
+    @Override
+    public ServerResponse createByProductIdAndCount(Integer userId, Integer shippingId, Integer productId, Integer count) {
+        if (productId == null || count == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        //校验商品和库存
+        Product product = productMapper.selectByPrimaryKey(productId);
+        if (Const.ProductStatus.ON_SALE.getCode() != product.getStatus()){
+            return ServerResponse.createByErrorMessage("商品" + product.getName() + "已下架！");
+        }
+
+        //校验库存
+        if (count > product.getStock()){
+            return ServerResponse.createByErrorMessage("商品" + product.getName() + "库存不足！");
+        }
+
+        OrderItem orderItem = GenericBuilder.of(OrderItem::new)
+                .with(OrderItem::setUserId, userId)
+                .with(OrderItem::setProductId, product.getId())
+                .with(OrderItem::setProductName, product.getName())
+                .with(OrderItem::setProductImage, product.getMainImage())
+                .with(OrderItem::setCurrentUnitPrice, product.getPrice())
+                .with(OrderItem::setQuantity, count)
+                .with(OrderItem::setTotalPrice, BigDecimalUtil.multiply(product.getPrice().doubleValue(), count))
+                .build();
+
+        BigDecimal payment = orderItem.getTotalPrice();
+
+        Order order = this.assembleOrder(userId,shippingId,payment);
+        if (order == null){
+            return ServerResponse.createByErrorMessage("生成订单失败！");
+        }
+        long orderNo = order.getOrderNo();
+        orderItem.setOrderNo(orderNo);
+
+        orderItemMapper.insertSelective(orderItem);
+        List<OrderItem> orderItemList = Lists.newArrayList();
+        orderItemList.add(orderItem);
+        //减库存
+        this.reduceProductStock(orderItemList);
+        //组装订单DTO
         OrderDTO orderDTO = assembleOrderDTO(order, orderItemList);
 
         return ServerResponse.createBySuccess(orderDTO);

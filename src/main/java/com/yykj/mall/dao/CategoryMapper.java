@@ -1,6 +1,6 @@
 package com.yykj.mall.dao;
 
-import com.yykj.mall.pojo.Category;
+import com.yykj.mall.entity.Category;
 
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package com.yykj.mall.dao;
 
-import com.github.pagehelper.PageInfo;
-import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.OrderItem;
+import com.yykj.mall.entity.OrderItem;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

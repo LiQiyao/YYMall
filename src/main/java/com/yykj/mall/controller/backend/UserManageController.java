@@ -2,7 +2,7 @@ package com.yykj.mall.controller.backend;
 
 import com.yykj.mall.common.Const;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import com.yykj.mall.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +20,12 @@ import javax.servlet.http.HttpSession;
 public class UserManageController {
 
     @Autowired
-    private IUserService iUserService;
+    private IUserService userService;
 
     @RequestMapping(value = "login.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session){
-        ServerResponse<User> response = iUserService.login(username, password);
+        ServerResponse<User> response = userService.login(username, password);
         if (response.isSuccess()){
             User user = response.getData();
             if (user.getRole() == Const.Role.ROLE_ADMIN){

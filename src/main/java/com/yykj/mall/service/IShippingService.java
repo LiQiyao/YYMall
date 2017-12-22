@@ -2,7 +2,7 @@ package com.yykj.mall.service;
 
 import com.github.pagehelper.PageInfo;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.Shipping;
+import com.yykj.mall.entity.Shipping;
 
 /**
  * Created by Lee on 2017/8/22.

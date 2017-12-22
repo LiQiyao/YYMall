@@ -1,6 +1,6 @@
 package com.yykj.mall.dao;
 
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {

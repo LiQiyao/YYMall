@@ -1,7 +1,7 @@
 package com.yykj.mall.service;
 
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 
 /**
  * Created by Lee on 2017/8/12.

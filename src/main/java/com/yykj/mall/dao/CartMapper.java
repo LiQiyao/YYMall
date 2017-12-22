@@ -1,6 +1,6 @@
 package com.yykj.mall.dao;
 
-import com.yykj.mall.pojo.Cart;
+import com.yykj.mall.entity.Cart;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

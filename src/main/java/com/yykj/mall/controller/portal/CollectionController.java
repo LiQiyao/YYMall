@@ -3,7 +3,7 @@ package com.yykj.mall.controller.portal;
 import com.yykj.mall.common.Const;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import com.yykj.mall.service.ICollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +36,7 @@ public class CollectionController {
 
     @RequestMapping(value = "add.json", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse collectProduct(HttpSession session, Integer productId){
+    public ServerResponse<Boolean> collectProduct(HttpSession session, Integer productId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user != null){
             return collectionService.collect(user.getId(), productId);
@@ -46,10 +46,20 @@ public class CollectionController {
 
     @RequestMapping(value = "cancel.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse cancelCollection(HttpSession session, Integer productId){
+    public ServerResponse<Boolean> cancelCollection(HttpSession session, Integer productId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user != null){
             return collectionService.cancelCollect(user.getId(), productId);
+        }
+        return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+    }
+
+    @RequestMapping(value = "collection_status.json", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<Boolean> getCollectionStatus(HttpSession session, Integer productId){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user != null){
+            return collectionService.getCollectionStatus(user.getId(), productId);
         }
         return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
     }

@@ -1,6 +1,6 @@
 package com.yykj.mall.dao;
 
-import com.yykj.mall.pojo.FlashSale;
+import com.yykj.mall.entity.FlashSale;
 
 public interface FlashSaleMapper {
     int deleteByPrimaryKey(Integer id);

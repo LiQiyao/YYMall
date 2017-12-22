@@ -4,7 +4,7 @@ import com.yykj.mall.common.Const;
 import com.yykj.mall.common.ServerResponse;
 import com.yykj.mall.common.TokenCache;
 import com.yykj.mall.dao.UserMapper;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import com.yykj.mall.service.IUserService;
 import com.yykj.mall.util.MD5Util;
 import org.apache.commons.lang3.StringUtils;

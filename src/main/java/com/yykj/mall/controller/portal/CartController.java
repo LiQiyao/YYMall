@@ -3,7 +3,7 @@ package com.yykj.mall.controller.portal;
 import com.yykj.mall.common.Const;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import com.yykj.mall.service.ICartService;
 import com.yykj.mall.dto.CartDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 public class CartController {
 
     @Autowired
-    private ICartService iCartService;
+    private ICartService cartService;
 
     @RequestMapping(value = "add.json", method = RequestMethod.POST)
     @ResponseBody
@@ -31,7 +31,7 @@ public class CartController {
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.add(user.getId(), productId, count);
+        return cartService.add(user.getId(), productId, count);
     }
 
     @RequestMapping(value = "list.json", method = RequestMethod.GET)
@@ -41,7 +41,7 @@ public class CartController {
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.list(user.getId());
+        return cartService.list(user.getId());
     }
 
     @RequestMapping(value = "update.json", method = RequestMethod.POST)
@@ -51,7 +51,7 @@ public class CartController {
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.update(user.getId(),productId,count);
+        return cartService.update(user.getId(),productId,count);
     }
 
     @RequestMapping(value = "products/delete.json", method = RequestMethod.POST)
@@ -61,7 +61,7 @@ public class CartController {
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.deleteProducts(user.getId(), productIds);
+        return cartService.deleteProducts(user.getId(), productIds);
     }
 
     @RequestMapping(value = "check_all.json", method = RequestMethod.POST)
@@ -71,7 +71,7 @@ public class CartController {
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.checkOrUnCheck(user.getId(), null, Const.Cart.CHECKED);
+        return cartService.checkOrUnCheck(user.getId(), null, Const.Cart.CHECKED);
     }
 
     @RequestMapping(value = "un_check_all.json", method = RequestMethod.POST)
@@ -81,7 +81,7 @@ public class CartController {
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.checkOrUnCheck(user.getId(), null, Const.Cart.UN_CHECKED);
+        return cartService.checkOrUnCheck(user.getId(), null, Const.Cart.UN_CHECKED);
     }
 
     @RequestMapping(value = "check.json", method = RequestMethod.POST)
@@ -91,7 +91,7 @@ public class CartController {
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.checkOrUnCheck(user.getId(), productId, Const.Cart.CHECKED);
+        return cartService.checkOrUnCheck(user.getId(), productId, Const.Cart.CHECKED);
     }
 
     @RequestMapping(value = "un_check.json", method = RequestMethod.POST)
@@ -101,6 +101,6 @@ public class CartController {
         if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.checkOrUnCheck(user.getId(), productId, Const.Cart.UN_CHECKED);
+        return cartService.checkOrUnCheck(user.getId(), productId, Const.Cart.UN_CHECKED);
     }
 }

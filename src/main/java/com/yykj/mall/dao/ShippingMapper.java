@@ -1,6 +1,6 @@
 package com.yykj.mall.dao;
 
-import com.yykj.mall.pojo.Shipping;
+import com.yykj.mall.entity.Shipping;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -21,13 +21,13 @@ public class OrderManageController {
 
 
     @Autowired
-    private IOrderService iOrderService;
+    private IOrderService orderService;
 
     @RequestMapping("list.json")
     @ResponseBody
     public ServerResponse<PageInfo> orderList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                               @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
-        return iOrderService.manageList(pageNum,pageSize);
+        return orderService.manageList(pageNum,pageSize);
 
     }
 
@@ -35,7 +35,7 @@ public class OrderManageController {
     @ResponseBody
     public ServerResponse<OrderDTO> orderDetail(HttpSession session, Long orderNo){
 
-        return iOrderService.manageDetail(orderNo);
+        return orderService.manageDetail(orderNo);
 
     }
 
@@ -43,12 +43,12 @@ public class OrderManageController {
     @ResponseBody
     public ServerResponse<PageInfo> orderSearch(HttpSession session, Long orderNo,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                                 @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
-        return iOrderService.manageSearch(orderNo,pageNum,pageSize);
+        return orderService.manageSearch(orderNo,pageNum,pageSize);
     }
 
     @RequestMapping("send_goods.json")
     @ResponseBody
     public ServerResponse<String> orderSendGoods(HttpSession session, Long orderNo){
-        return iOrderService.manageSendGoods(orderNo);
+        return orderService.manageSendGoods(orderNo);
     }
 }

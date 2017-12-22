@@ -2,7 +2,7 @@ package com.yykj.mall.service;
 
 import com.github.pagehelper.PageInfo;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.Product;
+import com.yykj.mall.entity.Product;
 import com.yykj.mall.dto.ProductDetailDTO;
 
 /**

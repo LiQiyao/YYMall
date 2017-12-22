@@ -1,7 +1,7 @@
 package com.yykj.mall.controller.backend;
 
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.Category;
+import com.yykj.mall.entity.Category;
 import com.yykj.mall.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,18 +20,18 @@ import java.util.List;
 public class CategoryManageController {
 
     @Autowired
-    private ICategoryService iCategoryService;
+    private ICategoryService categoryService;
 
     @RequestMapping(value = "add_category.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse addCategory(String categoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId){
-        return iCategoryService.addCategory(categoryName, parentId);
+        return categoryService.addCategory(categoryName, parentId);
     }
 
     @RequestMapping(value = "modify_category.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse modifyCategory(Integer categoryId, String newCategoryName){
-        return iCategoryService.modifyCategory(categoryId, newCategoryName);
+        return categoryService.modifyCategory(categoryId, newCategoryName);
     }
 
     /**
@@ -42,12 +42,12 @@ public class CategoryManageController {
     @RequestMapping(value = "get_parallel_children_category.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<List<Category>> getParallelChildrenCategory(@RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId){
-        return iCategoryService.getParallelChildrenCategory(categoryId);
+        return categoryService.getParallelChildrenCategory(categoryId);
     }
 
     @RequestMapping(value = "get_deep_children_category.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<List<Category>> getDeepChildrenCategory(@RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId){
-        return iCategoryService.getDeepChildrenCategory(categoryId);
+        return categoryService.getDeepChildrenCategory(categoryId);
     }
 }

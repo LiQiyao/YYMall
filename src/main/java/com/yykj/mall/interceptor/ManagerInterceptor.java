@@ -1,7 +1,7 @@
 package com.yykj.mall.interceptor;
 
 import com.yykj.mall.common.Const;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

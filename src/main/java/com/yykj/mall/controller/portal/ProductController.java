@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     @Autowired
-    private IProductService iProductService;
+    private IProductService productService;
 
     @RequestMapping(value = "{productId}/detail.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<ProductDetailDTO> detail(@PathVariable Integer productId){
-        return iProductService.getProductDetail(productId);
+        return productService.getProductDetail(productId);
     }
 
     @RequestMapping(value = "list.json", method = RequestMethod.GET)
@@ -31,6 +31,6 @@ public class ProductController {
                                          @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                          @RequestParam(value = "orderBy", defaultValue = "") String orderBy){
-        return iProductService.getProductByKeywordAndCategory(keyword, categoryId, pageNum, pageSize, orderBy);
+        return productService.getProductByKeywordAndCategory(keyword, categoryId, pageNum, pageSize, orderBy);
     }
 }

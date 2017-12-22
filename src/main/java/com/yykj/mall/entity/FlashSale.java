@@ -1,4 +1,4 @@
-package com.yykj.mall.pojo;
+package com.yykj.mall.entity;
 
 import java.util.Date;
 

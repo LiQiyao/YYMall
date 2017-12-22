@@ -3,8 +3,8 @@ package com.yykj.mall.controller.portal;
 import com.yykj.mall.common.Const;
 import com.yykj.mall.common.ResponseCode;
 import com.yykj.mall.common.ServerResponse;
-import com.yykj.mall.pojo.Shipping;
-import com.yykj.mall.pojo.User;
+import com.yykj.mall.entity.Shipping;
+import com.yykj.mall.entity.User;
 import com.yykj.mall.service.IShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 public class ShippingController {
 
     @Autowired
-    private IShippingService iShippingService;
+    private IShippingService shippingService;
 
     @RequestMapping(value = "add.json", method = RequestMethod.POST)
     @ResponseBody
@@ -32,7 +32,7 @@ public class ShippingController {
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iShippingService.add(user.getId(), shipping);
+        return shippingService.add(user.getId(), shipping);
     }
 
     @RequestMapping(value = "delete.json", method = RequestMethod.POST)
@@ -42,7 +42,7 @@ public class ShippingController {
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iShippingService.delete(user.getId(), shippingId);
+        return shippingService.delete(user.getId(), shippingId);
     }
 
     @RequestMapping(value = "update.json", method = RequestMethod.POST)
@@ -52,7 +52,7 @@ public class ShippingController {
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iShippingService.update(user.getId(), shipping);
+        return shippingService.update(user.getId(), shipping);
     }
 
     @RequestMapping(value = "detail.json", method = RequestMethod.POST)
@@ -62,7 +62,7 @@ public class ShippingController {
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iShippingService.detail(user.getId(), shippingId);
+        return shippingService.detail(user.getId(), shippingId);
     }
 
     @RequestMapping(value = "list.json", method = RequestMethod.GET)
@@ -72,6 +72,6 @@ public class ShippingController {
         if (user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iShippingService.list(user.getId(), pageNum, pageSize);
+        return shippingService.list(user.getId(), pageNum, pageSize);
     }
 }

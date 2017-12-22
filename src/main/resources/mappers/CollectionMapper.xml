@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yykj.mall.dao.CollectionMapper" >
-  <resultMap id="BaseResultMap" type="com.yykj.mall.pojo.Collection" >
+  <resultMap id="BaseResultMap" type="com.yykj.mall.entity.Collection" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -22,13 +22,13 @@
     delete from collection
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.yykj.mall.pojo.Collection" >
+  <insert id="insert" parameterType="com.yykj.mall.entity.Collection" >
     insert into collection (id, user_id, product_id, 
       create_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.yykj.mall.pojo.Collection" >
+  <insert id="insertSelective" parameterType="com.yykj.mall.entity.Collection" >
     insert into collection
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -59,7 +59,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yykj.mall.pojo.Collection" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.yykj.mall.entity.Collection" >
     update collection
     <set >
       <if test="userId != null" >
@@ -74,7 +74,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yykj.mall.pojo.Collection" >
+  <update id="updateByPrimaryKey" parameterType="com.yykj.mall.entity.Collection" >
     update collection
     set user_id = #{userId,jdbcType=INTEGER},
       product_id = #{productId,jdbcType=INTEGER},
@@ -86,9 +86,14 @@
     DELETE FROM collection where user_id=#{userId} and product_id=#{productId}
   </delete>
 
-  <select id="listCollectedProductsByUserId" resultType="com.yykj.mall.pojo.Product">
+  <select id="listCollectedProductsByUserId" resultType="com.yykj.mall.entity.Product">
       select pdt.id, pdt.name, pdt.subtitle, pdt.main_image, pdt.detail, pdt.price, pdt.price, pdt.status, pdt.stock
       from product as pdt, collection as clt
       where clt.user_id=#{userId} and pdt.id=clt.product_id
+  </select>
+
+  <select id="selectByUserIdAndProductId" resultType="int">
+    select id from collection
+    where user_id=#{userId} and product_id=#{productId}
   </select>
 </mapper>
