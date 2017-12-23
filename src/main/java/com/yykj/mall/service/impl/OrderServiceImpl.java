@@ -276,7 +276,7 @@ public class OrderServiceImpl implements IOrderService {
         List<Order> orderList = orderMapper.selectByUserId(userId);
         List<OrderDTO> orderDTOList = assembleOrderDTOList(orderList,userId);
         PageInfo pageResult = new PageInfo(orderDTOList);
-//        pageResult.setList(orderDTOList);
+        pageResult.setList(orderDTOList);
         return ServerResponse.createBySuccess(pageResult);
     }
 

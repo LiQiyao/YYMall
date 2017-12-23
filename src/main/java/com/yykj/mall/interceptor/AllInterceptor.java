@@ -18,7 +18,7 @@ public class AllInterceptor implements HandlerInterceptor {
         httpServletResponse.setCharacterEncoding("utf-8");
         User user = new User();
         user.setId(26);
-        httpServletRequest.getSession().setAttribute(Const.CURRENT_USER, user);
+        //httpServletRequest.getSession().setAttribute(Const.CURRENT_USER, user);
         return true;
     }
 

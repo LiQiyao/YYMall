@@ -194,7 +194,7 @@
       </if>
     </where>
   </select>
-  <select id="selectByKeywordAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
+  <select id="selectByKeywordAndCategoryIds" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from product
     where status=1
