@@ -52,13 +52,16 @@ public class ProductManageController{
 
     @RequestMapping(value = "list.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
+    public ServerResponse getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                  @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
         return productService.getProductList(pageNum, pageSize);
     }
 
     @RequestMapping(value = "search.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse searchProduct(String productName, Integer productId, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
+    public ServerResponse searchProduct(String productName, Integer productId,
+                                        @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
         return productService.searchProduct(productName, productId, pageNum, pageSize);
     }
 

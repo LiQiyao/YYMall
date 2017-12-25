@@ -16,19 +16,19 @@ import java.util.List;
  * Created by Lee on 2017/8/15.
  */
 @Controller
-@RequestMapping("/manage/category")
+@RequestMapping("/manage/category/")
 public class CategoryManageController {
 
     @Autowired
     private ICategoryService categoryService;
 
-    @RequestMapping(value = "add_category.json", method = RequestMethod.POST)
+    @RequestMapping(value = "add.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse addCategory(String categoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId){
         return categoryService.addCategory(categoryName, parentId);
     }
 
-    @RequestMapping(value = "modify_category.json", method = RequestMethod.POST)
+    @RequestMapping(value = "modify.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse modifyCategory(Integer categoryId, String newCategoryName){
         return categoryService.modifyCategory(categoryId, newCategoryName);
@@ -39,13 +39,13 @@ public class CategoryManageController {
      * @param categoryId
      * @return
      */
-    @RequestMapping(value = "get_parallel_children_category.json", method = RequestMethod.GET)
+    @RequestMapping(value = "parallel_children.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<List<Category>> getParallelChildrenCategory(@RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId){
         return categoryService.getParallelChildrenCategory(categoryId);
     }
 
-    @RequestMapping(value = "get_deep_children_category.json", method = RequestMethod.GET)
+    @RequestMapping(value = "all_children.json", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<List<Category>> getDeepChildrenCategory(@RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId){
         return categoryService.getDeepChildrenCategory(categoryId);
