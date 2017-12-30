@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>筑紫优品-上传商品</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/manager_test.css" rel="stylesheet">
+    <link href="css/m_upload.css" rel="stylesheet">
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+</head>
+<body class="background">
+<div class="row clearfix">
+    <div class="column col-lg-12">
+        <nav class="navbar navbar-default navbar-inverse">
+            <div class="title_container">
+                <div class="navbar-header">
+                    <img class="navbar-brand" src="image/logo_white.png">
+                </div>
+                <div class="navbar-inner">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="">管理中心</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+    <div class="row clearfix" id="box">
+        <div class="column col-lg-2 sidebar">
+            <ul class="nav nav-sidebar" >
+                <li><a href="m_index.html">
+                    <span class="glyphicon glyphicon-th-large"></span> 概览</a>
+                </li>
+                <li>
+                    <a href="#collapsed1" class="nav-header collapsed active" data-toggle="collapse"
+                       style="background: #0f0f0f;">
+                        <div class="glyphicon glyphicon-barcode"></div>
+                        商品
+                        <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                    </a>
+                    <ul id="collapsed1" class="nav nav-list collapse" style="height: 0px;">
+                        <li><a href="m_upload.html" class="active"> 上架商品
+                            <span class="pull-right glyphicon glyphicon-chevron-left"></span></a></li>
+                        <li><a href="m_product.html" class="active"> 管理商品</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#collapsed2" class="nav-header collapsed" data-toggle="collapse">
+                        <div class="glyphicon glyphicon-th-list"></div>
+                        分类
+                        <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                    </a>
+                    <ul id="collapsed2" class="nav nav-list collapse" style="height: 0px;">
+                        <li><a href="m_add_ategory.html" class="active"> 新增分类</a></li>
+                        <li><a href="m_category.html" class="active"> 管理分类</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#collapsed3" class="nav-header collapsed" data-toggle="collapse">
+                        <div class="glyphicon glyphicon-file"></div>
+                        订单
+                        <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                    </a>
+                    <ul id="collapsed3" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        <li><a href="m_order.html" class="active"> 管理订单</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <div class="column col-lg-10" id="main">
+            <h3>上架商品</h3>
+            <form style="width: 80%">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-2">填写商品名</label>
+                        <div class="col-lg-10">
+                            <input name="name" class="form-control" type="text" id="inputName"
+                                   style="width: 85%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">填写小标题</label>
+                        <div class="col-lg-10">
+                            <input name="subtitle" class="form-control" type="text" id="inputSubtitle"
+                                   style="width: 85%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">填写价格</label>
+                        <div class="col-lg-10">
+                            <input name="price" class="form-control" type="text" id="inputPrice"
+                                   style="width: 85%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">填写库存</label>
+                        <div class="col-lg-10">
+                            <input name="stock" class="form-control" type="text" id="inputStock"
+                                   style="width: 85%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">选择分类</label>
+                        <div class="col-lg-4">
+                            <select class="form-control" id="selParentId">
+                                <!--<option value=""></option>-->
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <select class="form-control" id="selChlidId">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">商品图片（最多五张）</label>
+                        <!--<div class="col-lg-10">
+                            <div class="form-inline">
+                                <input class="form-control" type="text"
+                                       placeholder="可一次上传多张图片" id="imagename" readonly>
+                                <span class="btn btn-success fileinput-button">
+                                        <span>上传</span>
+                                        <input name="imageFile" type="file" id="InputImage" accept="image/*"
+                                               multiple="multiple">
+                                    </span>
+                            </div>
+                        </div>-->
+                        <div class="col-lg-10">
+                            <div class="img-area">
+                                <img src="" class="img-thumbnail" id="img1">
+                                <img src="" class="img-thumbnail" id="img2">
+                                <img src="" class="img-thumbnail" id="img3">
+                                <img src="" class="img-thumbnail" id="img4">
+                                <img src="" class="img-thumbnail" id="img5">
+                            </div>
+                            <span id="uploadForm" class="btn btn-info">
+                                <span>选择图片</span>
+                                <input id="file" type="file"/>
+                            </span>
+                            <button class="btn btn-success" id="uploadImgBtn" type="button">添加</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">商品详情</label>
+                        <div class="col-lg-10">
+                            <textarea name="detail" class="form-control" rows="3"
+                                      style="width: 85%" id="inputDetail"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+            </form>
+            <div class="col-lg-10" id="upload-box">
+                <div class="btn btn-lg btn-primary btn-block" id="upload">上架</div>
+            </div>
+        </div>
+        <!-- 成功 -->
+        <div class="modal fade tip-modal" id="successModal" tabindex="-1" role="dialog">
+            <div class="alert alert-success" role="alert">上架成功</div>
+        </div>
+
+        <!-- 失败 -->
+        <div class="modal fade tip-modal" id="unknownModal" tabindex="-1" role="dialog">
+            <div class="alert alert-danger" role="alert">请重试</div>
+        </div>
+    </div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/url.js"></script>
+<script src="js/m_upload.js"></script>
+</body>
+</html>

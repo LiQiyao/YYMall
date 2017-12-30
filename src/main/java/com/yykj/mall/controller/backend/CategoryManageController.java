@@ -25,6 +25,7 @@ public class CategoryManageController {
     @RequestMapping(value = "add.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse addCategory(String categoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId){
+
         return categoryService.addCategory(categoryName, parentId);
     }
 

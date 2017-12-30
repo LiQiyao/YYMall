@@ -1,0 +1,33 @@
+.bi-item{
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.hd{
+    width: 200px;
+    height: 200px;
+}
+
+.cancel:hover{
+    color: #FFFFFF;
+}
+
+.cancel:visited{
+    text-decoration: none;
+}
+
+.cancel{
+    position: relative;
+    width: 200px;
+    height: 30px;
+    background: #979797;
+    bottom: 30px;
+    opacity:0.95;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    line-height: 30px;
+    color: #FFFFFF;
+    display: none;
+    z-index: 10000;
+}

@@ -59,10 +59,10 @@ public class ProductManageController{
 
     @RequestMapping(value = "search.json", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse searchProduct(String productName, Integer productId,
+    public ServerResponse searchProduct(String productName,
                                         @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
-        return productService.searchProduct(productName, productId, pageNum, pageSize);
+        return productService.searchProduct(productName, pageNum, pageSize);
     }
 
     @RequestMapping(value = "upload.json", method = RequestMethod.POST)

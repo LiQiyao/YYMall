@@ -1,0 +1,60 @@
+.table{
+    border-width:1px;
+    border-style:solid;
+    border-color: #e7e7e7;
+}
+
+.product-info img{
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin: 5px;
+}
+
+.product-info a{
+    font-size: 12px;
+    float: left;
+    width: 200px;
+    height: 50px;
+    padding-top: 10px;
+}
+
+.table tbody td{
+    border-width:0 1px 0 0;
+    border-style:solid;
+    border-color: #e7e7e7;
+}
+
+.td-price,.td-num,.td-status,.td-total{
+    text-align: center;
+}
+
+.td-price div,.td-num div,.td-status div{
+    height: 50px;
+    line-height: 50px;
+}
+
+.td-total div{
+    padding-top: 10px;
+}
+
+.tb-head{
+    text-align: center;
+    font-size: 12px;
+    border-color: #e7e7e7;
+    background: #e7e7e7;
+    margin-bottom: 5px;
+}
+
+.panel-body nav ul{
+    margin: 5px 5px 10px 5px;
+}
+
+.pager li a{
+    font-size: 12px;
+    border-radius: 2px;
+}
+
+.tb-item thead tr{
+    background: #e3e3e3;
+}

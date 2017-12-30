@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理中心</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/manager_test.css" rel="stylesheet">
+    <link href="css/m_index.css" rel="stylesheet">
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+</head>
+<body class="background">
+<div class="row clearfix">
+    <div class="column col-lg-12">
+        <nav class="navbar navbar-default navbar-inverse">
+            <div class="title_container">
+                <div class="navbar-header">
+                    <img class="navbar-brand" src="image/logo_white.png">
+                </div>
+                <div class="navbar-inner">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="">管理中心</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="row clearfix" id="box">
+    <div class="column col-lg-2 sidebar">
+        <ul class="nav nav-sidebar">
+            <li style="background: #0f0f0f;"><a href="m_index.html">
+                <span class="glyphicon glyphicon-th-large"></span> 概览</a>
+            </li>
+            <li>
+                <a href="#collapsed1" class="nav-header collapsed active" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-barcode"></div>
+                    商品
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed1" class="nav nav-list collapse" style="height: 0px;">
+                    <li><a href="m_upload.html" class="active"> 上架商品</a></li>
+                    <li><a href="m_product.html" class="active"> 管理商品</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#collapsed2" class="nav-header collapsed" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-th-list"></div>
+                    分类
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed2" class="nav nav-list collapse" style="height: 0px;">
+                    <li><a href="m_add_ategory.html" class="active"> 新增分类</a></li>
+                    <li><a href="m_category.html" class="active"> 管理分类</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#collapsed3" class="nav-header collapsed" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-file"></div>
+                    订单
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed3" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                    <li><a href="m_order.html" class="active"> 管理订单</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="column col-lg-10" id="main">
+        <h3>信息总览</h3>
+        <div class="row placeholders">
+            <div class="col-lg-6">
+                <div id="product_graph"></div>
+            </div>
+            <div class="col-lg-6">
+                <div id="order_graph"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/m_index.js"></script>
+</body>
+</html>

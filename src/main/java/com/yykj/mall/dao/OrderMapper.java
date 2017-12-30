@@ -25,4 +25,6 @@ public interface OrderMapper {
     List<Order> selectByUserId(Integer userId);
 
     List<Order> selectAll();
+
+    List<Order> selectByVagueOrderNo(String orderNo);
 }

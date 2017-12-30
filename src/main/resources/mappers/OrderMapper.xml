@@ -207,7 +207,7 @@
     and user_id=#{userId};
   </select>
   <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="long">
-    select <include refid="Base_Column_List"/> from `order` where order_no=#{orderNo};
+    select <include refid="Base_Column_List"/> from `order` where order_no=#{orderNo}
   </select>
 
   <select id="selectByUserId" parameterType="int" resultMap="BaseResultMap">
@@ -221,5 +221,9 @@
     <include refid="Base_Column_List"/>
     from `order`
     ORDER BY  create_time desc
+  </select>
+
+  <select id="selectByVagueOrderNo" resultMap="BaseResultMap" parameterType="string">
+    select <include refid="Base_Column_List"/> from `order` where order_no like #{orderNo}
   </select>
 </mapper>

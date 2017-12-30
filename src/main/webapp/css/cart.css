@@ -1,0 +1,364 @@
+.bg{
+    width: 100%;
+}
+
+.g-row{
+    margin-left: 14%;
+    margin-right: 14%;
+    width:1090px;
+}
+
+.cart{
+    width: 1090px;
+    margin-top: 20px;
+    padding-bottom: 40px;
+}
+
+.cart-body{
+    width: 100%;
+}
+
+.cb-head{
+    width: 100%;
+    height: 46px;
+    margin-bottom: 20px;
+}
+
+.tt{
+    width: 100%;
+    height: 100%;
+    padding: 12px 0 12px 0;
+    border-width:1px;
+    border-style:solid;
+    border-color: #c4c4c4;
+    background: #f8f8f8;
+}
+
+.w1,.w2,.w3,.w4,.w5,.w6{
+    float: left;
+    font-size: 13px;
+    text-align: left;
+    line-height: 19.5px;
+}
+
+.w1{
+    width: 158px;
+}
+
+.w-chkbox{
+    margin-left: 20px;
+    width: 138px;
+    height: 20.8px;
+
+}
+
+.w-chkbox input{
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    top: 4px;
+    margin: 0;
+}
+
+.w-chkbox span{
+    margin-left: 14px;
+}
+
+.w2{
+    width: 260px;
+}
+
+.w3,.w4{
+    width: 180px;
+    text-align: center;
+}
+
+.w5{
+    width: 180px;
+    text-align: right;
+    padding-right: 30px;
+}
+
+.w6{
+    width: 129px;
+    text-align: left;
+    padding-left: 31px;
+}
+
+.cb-body{
+    width: 1090px;
+}
+
+.cart-group{
+    width: 1090px;
+
+
+    margin-bottom: 10px;
+}
+
+.cart-item{
+    position: relative;
+    width: 100%;
+    height: 150px;
+    padding: 20px 0 20px 0;
+    border-width:1px;
+    border-style:solid;
+    border-color: #c4c4c4;
+    margin-bottom: 10px;
+}
+
+.i1,.i2,.i3,.i4,.i5,.i6{
+    position: relative;
+    float: left;
+}
+
+.i1{
+    width: 58px;
+    height: 59.2px;
+    top: 30px;
+}
+
+.i2{
+    width: 360px;
+    height: 100px;
+}
+
+.pic{
+    width: 100px;
+    height: 100px;
+    float: left;
+    border-width:1px;
+    border-style:solid;
+    border-color: #c4c4c4;
+}
+
+.pic img{
+    width: 100px;
+    height: 100px;
+}
+
+.nameCon{
+    width: 260px;
+    height: 94.4px;
+    float: left;
+    padding: 10px 0 0 20px;
+}
+
+.i3{
+    width: 180px;
+    height: 33.6px;
+    padding-top: 10px;
+    text-align: center;
+
+}
+
+.i3 p{
+    font-size: 14px;
+}
+
+.i4{
+    width: 180px;
+    height: 40px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.selnum{
+    display: inline-block;
+    width: 132px;
+    height: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d9d9d9;
+}
+
+.selnum input{
+    border-style: none;
+    float: left;
+    width: 60px;
+    height: 28px;
+    text-align: center;
+    position: relative;
+    padding: 0;
+    font-size: 12px;
+}
+
+.less,.more{
+    width: 35px;
+    height: 30px;
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-color: #d9d9d9;
+    position: relative;
+    float: left;
+    text-align: center;
+    line-height: 28px;
+    color: #979797;
+}
+
+.more{
+    border-width: 0 0 0 1px;
+}
+
+.stock{
+    display: inline-block;
+    height: 29.6px;
+    line-height: 29.6px;
+    margin-left: 10px;
+    color: #979797;
+}
+
+.i5{
+    text-align: center;
+    width: 180px;
+    height: 30.6px;
+    padding-top: 10px;
+}
+
+.c-price{
+    width: 100%;
+    height: 13.6px;
+    padding-right: 30px;
+    margin-bottom: 10px;
+    text-align: right;
+    font-size: 14px;
+    color: #b92c28;
+}
+
+.i6{
+    width: 129px;
+    height: 47.2px;
+    padding-left: 31px;
+}
+
+.operate{
+    width: 98px;
+    height: 23.6px;
+    padding-top: 10px;
+}
+
+.cart-total{
+    position: relative;
+    width: 1090px;
+    height: 66px;
+    border-width:1px;
+    border-style:solid;
+    background: #f8f8f8;
+    border-color: #c4c4c4;
+}
+
+.t-chkbox{
+    position: absolute;
+    width: 280px;
+    height: 22.4px;
+    top: 24px;
+    bottom: 17.6px;
+    left: 22px;
+    right: 806px;
+}
+
+.t-chkbox input{
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    top: 4px;
+    margin: 0;
+}
+
+.t-chkbox span{
+    margin-left: 14px;
+}
+
+.t-chkbox a{
+    margin-left: 30px;
+}
+
+.ok{
+    width: 139px;
+    height: 65px;
+    float: right;
+}
+
+.ok button{
+    width: 140px;
+    height: 66px;
+    margin-top: -1px;
+    margin-right: -1px;
+    display: inline-block;
+    font-size: 18px;
+    color: #FFF;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border-radius: 1px;
+}
+
+.ok button:hover{
+    color: #FFFFFF;
+    background: #b92c28;
+}
+
+.t-info{
+    width: 600px;
+    height: 53.6px;
+    margin-right: 25px;
+    float: right;
+}
+
+.line{
+    width: 100%;
+    height: 100%;
+    padding-top: 16px;
+}
+
+.last-price{
+    float: right;
+    text-align: right;
+}
+
+.lp-tip{
+    display: block;
+    float: left;
+    height: 30px;
+    line-height: 33px;
+}
+
+.lp-num{
+    float: left;
+
+    height: 29.6px;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #b92c28;
+    font-size: 22px;
+}
+
+.tip{
+    float: right;
+    height: 33px;
+    margin-right: 10px;
+    color: #979797;
+    text-align: right;
+    line-height: 33px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

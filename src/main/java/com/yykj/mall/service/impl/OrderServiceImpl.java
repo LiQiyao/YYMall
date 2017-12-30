@@ -159,6 +159,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public ServerResponse cancel(Integer userId, Long orderNo){
         Order order = orderMapper.selectByOrderNoAndUserId(orderNo, userId);
         if (order == null){
@@ -214,6 +215,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public ServerResponse createByProductIdAndCount(Integer userId, Integer shippingId, Integer productId, Integer count) {
         if (productId == null || count == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -423,6 +425,7 @@ public class OrderServiceImpl implements IOrderService {
 
 
     @Override
+    @Transactional
     public ServerResponse pay(Long orderNo, Integer userId, String path){
         if (orderNo == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -611,13 +614,11 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public ServerResponse<PageInfo> manageSearch(Long orderNo,int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
-        Order order = orderMapper.selectByOrderNo(orderNo);
-        if(order != null){
-            List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(orderNo);
-            OrderDTO orderDTO = assembleOrderDTO(order,orderItemList);
-
-            PageInfo pageResult = new PageInfo(Lists.newArrayList(order));
-            pageResult.setList(Lists.newArrayList(orderDTO));
+        List<Order> orderList = orderMapper.selectByVagueOrderNo("%" + orderNo + "%");
+        if(orderList.size() > 0){
+            List<OrderDTO> orderDTOList = this.assembleOrderDTOList(orderList,null);
+            PageInfo pageResult = new PageInfo(orderList);
+            pageResult.setList(orderDTOList);
             return ServerResponse.createBySuccess(pageResult);
         }
         return ServerResponse.createByErrorMessage("订单不存在");

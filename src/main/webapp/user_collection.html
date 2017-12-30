@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>商品收藏-筑紫优品</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/user_center.css" rel="stylesheet">
+    <link href="css/user_collection.css" rel="stylesheet">
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+</head>
+<body>
+    <div class="pageTop">
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">筑紫优品</a>
+                </div>
+                <div class="navbar-right collapse navbar-collapse">
+                    <ul class="nav navbar-nav" id="userNav">
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="bannerTab">
+            <div class="row">
+                <a class="logo" href="#">
+                    <img src="image/logo.png">
+                </a>
+                <ul class="menuRow center-block list-inline">
+                    <li class="li-item text-center"><a href="main.html">首页</a></li>
+                </ul>
+                <div class="cartWarp">
+                    <a href="cart.html">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                    </a>
+                </div>
+                <div class="searchWarp">
+                    <input type="text" placeholder="搜索商品" id="searchInput">
+                    <a href='javascript:void(0)' id="searchBtn">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pageComponent">
+        <div class="row pgrow">
+            <div class="col-lg-2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="user_center.html">个人中心</a></li>
+                    <li>
+                        <span class="nav-title">我的交易</span>
+                        <a href="user_order.html">订单管理</a>
+                    </li>
+                    <li>
+                        <span class="nav-title">我的信息</span>
+                        <a href="user_info.html">个人资料</a>
+                        <a href="user_address.html">收货地址管理</a>
+                    </li>
+                    <li>
+                        <span class="nav-title">我的收藏</span>
+                        <a href="user_collection.html" style="color: #1b6d85">商品收藏</a>
+                    </li>
+                    <li>
+                        <span class="nav-title">我的服务</span>
+                        <a href="javascript:void(0)">退换货记录</a>
+                        <a href="javascript:void(0)">订单投诉记录</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-lg-10">
+                <div class="panel">
+                    <div class="panel-heading panel-default">商品收藏</div>
+                    <div class="panel-body">
+                        <ul class="bi-list">
+                            <!--<li class="bi-item">
+                                <div class="m-product">
+                                    <div class="hd">
+                                        <a href="#">
+                                            <img src="image/item/01.jpg">
+                                        </a>
+                                        <a href="javascript:void(0)" class="cancel">取消收藏</a>
+                                    </div>
+                                    <div class="bd">
+                                        <h4 class="name">
+                                            <a href="">加厚保暖白鸭毛丝羽绒床褥</a>
+                                        </h4>
+                                        <p class="price">
+                                            <span class="retailPrice">
+                                                <span>￥</span>
+                                                <span>379</span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pageFoot">
+        <div class="foot1">
+            <div class="f-row">
+                <div class="f-row-item">
+                    <div class="item-tel">
+                        <h4 class="it-hd">客户服务</h4>
+                        <a><div>在线客服</div></a>
+                        <a><div>用户反馈</div></a>
+                    </div>
+                </div>
+                <div class="f-row-item">
+                    <div class="whatIs">
+                        <h4>何为优品</h4>
+                        <p>原创生活类电商品牌，秉承一贯的严谨态度，我们深入世界各地，
+                            从源头全程严格把控商品生产环节，力求帮消费者甄选到优质的商品</p>
+                    </div>
+                </div>
+                <div class="f-row-item">
+                    <div class="appDownload">
+                        <h4>扫码下载APP</h4>
+                        <img src="image/canvas.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot2">
+            <div class="f-row">
+                <ul class="siteEnsure">
+                    <li class="cp-item">
+                        <div class="cp-inner">
+                            <img class="cp-icon" src="image/cpicon1.png">
+                            <p class="cp-text">30天无忧退换货</p>
+                        </div>
+                    </li>
+                    <li class="cp-item">
+                        <div class="cp-inner">
+                            <img class="cp-icon" src="image/cpicon2.png">
+                            <p class="cp-text">满88元免邮费</p>
+                        </div>
+                    </li>
+                    <li class="cp-item">
+                        <div class="cp-inner">
+                            <img class="cp-icon" src="image/cpicon3.png">
+                            <p class="cp-text">优质品质保证</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="cp-hr"></div>
+                <div class="siteInfo">
+                    <p>关于我们 | 帮助中心 | 售后服务 | 配送与验收 | 商务合作 | 企业采购 | 开放平台 | 搜索推荐 | 友情链接</p>
+                    <p>--公司版权所有 © 1997-2018</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成功 -->
+    <div class="modal fade tip-modal" id="successModal" tabindex="-1" role="dialog">
+        <div class="alert alert-success" role="alert">取消收藏成功</div>
+    </div>
+
+    <!-- 失败 -->
+    <div class="modal fade tip-modal" id="unknownModal" tabindex="-1" role="dialog">
+        <div class="alert alert-danger" role="alert">请重试</div>
+    </div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-hover-dropdown.min.js"></script>
+<script src="js/url.js"></script>
+<script src="js/user_collection.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

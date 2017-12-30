@@ -58,7 +58,7 @@ public class Const {
         PAID(20,"已付款"),
         SHIPPED(40,"已发货"),
         ORDER_SUCCESS(50,"订单完成"),
-        ORDER_CLOSE(60,"订单关闭");;
+        ORDER_CLOSE(60,"订单关闭");
 
         private int code;
         private String value;

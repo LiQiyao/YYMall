@@ -3,6 +3,7 @@ package com.yykj.mall.common;
 import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -10,6 +11,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -17,13 +19,15 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /**
  * Created by Lee on 2017/8/31.
  */
+
 public class RedisCache implements Cache{
 
     private static final Logger logger = LoggerFactory.getLogger(RedisCache.class);
 
+
     private static JedisConnectionFactory jedisConnectionFactory;
 
-    private final String id;
+    private  String id;
 
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
@@ -31,6 +35,10 @@ public class RedisCache implements Cache{
         ApplicationContext context = new FileSystemXmlApplicationContext("classpath:redis.xml");
         jedisConnectionFactory = (JedisConnectionFactory) context.getBean("jedisConnectionFactory");
         logger.debug("factory:" + jedisConnectionFactory);
+    }
+
+    public RedisCache() {
+        System.out.println("redisCache被构造" + jedisConnectionFactory);
     }
 
     public RedisCache(final String id) {
@@ -59,6 +67,7 @@ public class RedisCache implements Cache{
     @Override
     public Object getObject(Object key) {
         Object res = null;
+        System.out.println("哈哈哈哈");
         RedisConnection connection = jedisConnectionFactory.getConnection();
         RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer();
         res = serializer.deserialize(connection.get(serializer.serialize(key)));
@@ -95,4 +104,11 @@ public class RedisCache implements Cache{
         return lock;
     }
 
+    public JedisConnectionFactory getJedisConnectionFactory() {
+        return jedisConnectionFactory;
+    }
+
+    public static void setJedisConnectionFactory(JedisConnectionFactory connectionFactory) {
+        jedisConnectionFactory = connectionFactory;
+    }
 }

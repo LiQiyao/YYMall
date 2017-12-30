@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理中心-用户</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/manager_test.css" rel="stylesheet">
+    <link href="css/m_order.css" rel="stylesheet">
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+</head>
+<body class="background">
+<div class="row clearfix">
+    <div class="column col-lg-12">
+        <nav class="navbar navbar-default navbar-inverse">
+            <div class="title_container">
+                <div class="navbar-header">
+                    <img class="navbar-brand" src="image/logo_white.png">
+                </div>
+                <div class="navbar-inner">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="">管理中心</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="row clearfix" id="box">
+    <div class="column col-lg-2 sidebar">
+        <ul class="nav nav-sidebar">
+            <li><a href="m_index.html">
+                <span class="glyphicon glyphicon-th-large"></span> 概览</a>
+            </li>
+            <li>
+                <a href="#collapsed1" class="nav-header collapsed active" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-barcode"></div>
+                    商品
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed1" class="nav nav-list collapse" style="height: 0px;">
+                    <li><a href="m_upload.html" class="active"> 上架商品</a></li>
+                    <li><a href="m_product.html" class="active"> 管理商品</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#collapsed2" class="nav-header collapsed" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-th-list"></div>
+                    分类
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed2" class="nav nav-list collapse" style="height: 0px;">
+                    <li><a href="m_add_ategory.html" class="active"> 新增分类</a></li>
+                    <li><a href="m_category.html" class="active"> 管理分类</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#collapsed3" class="nav-header collapsed" data-toggle="collapse"
+                   style="background: #0f0f0f;">
+                    <div class="glyphicon glyphicon-file"></div>
+                    订单
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed3" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                    <li><a href="m_order.html" class="active"> 管理订单
+                        <span class="pull-right glyphicon glyphicon-chevron-left"></span></a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="column col-lg-10" id="main">
+        <h3>根据订单编号筛选</h3>
+        <form action="" method="post" class="form-inline">
+            <div class="form-group">
+                <input type="text" id="inputSearch" class="form-control"
+                       placeholder="在此处输入订单编号">
+            </div>
+            <div class="btn btn-primary" id="searchBtn">确认</div>
+        </form>
+        <h3>订单信息</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th><span class="glyphicon glyphicon-th-large"></span> 订单编号</th>
+                    <th><span class="glyphicon glyphicon-th-user"></span> 收货人</th>
+                    <th><span class="glyphicon glyphicon-home"></span> 地址</th>
+                    <th><span class="glyphicon glyphicon-glyphicon glyphicon-euro"></span> 总价</th>
+                    <th><span class="glyphicon glyphicon-pushpin"></span> 创建日期</th>
+                    <th><span class=" glyphicon glyphicon-download-alt"></span> 状态</th>
+                    <th><span class="glyphicon glyphicon-pencil"></span> 操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <!--<td>订单编号</td>
+                    <td>下单者</td>
+                    <td>总价</td>
+                    <td>日期</td>
+                    <td>状态</td>
+                    <td>
+                        <a class="btn btn-sm btn-danger" name="post">发货</a>
+                        <a class="btn btn-sm btn-success" name="showmore">查看详情</a></td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span>&times;</span>
+                        </button>
+                        <h4 class="modal-title">订单详情</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item address-block">
+                                <h5>收货人信息</h5>
+                                <ul class="address-list" style="list-style: none">
+                                    <li class="address-box">
+                                        <!--<span>收货人：&nbsp;电话：&nbsp;收货地址: </span>-->
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <h5>支付及配送方式</h5>
+                                <span>支付类型：在线支付&nbsp;</span>
+                                <span id="payed">已支付：￥0.00</span>
+                                <span>&nbsp;配送方式：快递</span>
+                            </li>
+                            <li class="list-group-item">
+                                <h5>商品信息</h5>
+                                <div class="cb-head">
+                                    <div class="tt">
+                                        <div class="w1">
+                                            <div class="w-chkbox">
+                                            </div>
+                                        </div>
+                                        <div class="w2">商品信息</div>
+                                        <div class="w3">单价</div>
+                                        <div class="w4">数量</div>
+                                        <div class="w5">小计</div>
+                                    </div>
+                                </div>
+                                <div class="cb-body">
+                                    <div class="cart-group">
+                                        <!--<div class="cart-item">
+                                            <div class="i2">
+                                                <div class="pic">
+                                                    <img src="image/item/01.jpg">
+                                                </div>
+                                                <div class="nameCon">
+                                                    <p>加厚保暖白鸭毛丝羽绒床褥</p>
+                                                </div>
+                                            </div>
+                                            <div class="i3">
+                                                <span>¥</span>
+                                                <span>429.00</span>
+                                            </div>
+                                            <div class="i4">
+                                                <span>1件</span>
+                                            </div>
+                                            <div class="i5">
+                                                <p class="c-price">
+                                                    <span>¥</span>
+                                                    <span>3000.00</span>
+                                                </p>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="message_footer">
+            <nav>
+                <ul class="pager">
+                    <li><button class="btn btn-sm btn-info" id="Previous">上一页</button></li>
+                    <li><button class="btn btn-sm btn-info" id="Next">下一页</button></li>
+                </ul>
+            </nav>
+        </footer>
+        <!-- 成功 -->
+        <div class="modal fade tip-modal" id="successModal" tabindex="-1" role="dialog">
+            <div class="alert alert-success" role="alert">操作成功</div>
+        </div>
+
+        <!-- 失败 -->
+        <div class="modal fade tip-modal" id="unknownModal" tabindex="-1" role="dialog">
+            <div class="alert alert-danger" role="alert">请重试</div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/url.js"></script>
+<script src="js/m_order.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>新增分类-筑紫优品</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/manager_test.css" rel="stylesheet">
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+</head>
+<body class="background">
+<div class="row clearfix">
+    <div class="column col-lg-12">
+        <nav class="navbar navbar-default navbar-inverse">
+            <div class="title_container">
+                <div class="navbar-header">
+                    <img class="navbar-brand" src="image/logo_white.png">
+                </div>
+                <div class="navbar-inner">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="">管理中心</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="row clearfix" id="box">
+    <div class="column col-lg-2 sidebar">
+        <ul class="nav nav-sidebar">
+            <li><a href="m_index.html">
+                <span class="glyphicon glyphicon-th-large"></span> 概览</a>
+            </li>
+            <li>
+                <a href="#collapsed1" class="nav-header collapsed active" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-barcode"></div>
+                    商品
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed1" class="nav nav-list collapse" style="height: 0px;">
+                    <li><a href="m_upload.html" class="active"> 上架商品</a></li>
+                    <li><a href="m_product.html" class="active"> 管理商品</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#collapsed2" class="nav-header collapsed" data-toggle="collapse"
+                style="background: #0f0f0f;">
+                    <div class="glyphicon glyphicon-th-list"></div>
+                    分类
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed2" class="nav nav-list collapse" style="height: 0px;">
+                    <li><a href="m_add_ategory.html" class="active"> 新增分类
+                        <span class="pull-right glyphicon glyphicon-chevron-left"></span></a></li>
+                    <li><a href="m_category.html" class="active"> 管理分类</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#collapsed3" class="nav-header collapsed" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-file"></div>
+                    订单
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed3" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                    <li><a href="m_order.html" class="active"> 管理订单</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="column col-lg-10" id="main">
+        <h3>新增父级分类</h3>
+        <form action="" method="post" class="form-inline">
+            <div class="form-group">
+                <input type="text" id="inputParentCategory"  class="form-control"
+                       placeholder="在此处输入分类名称">
+            </div>
+            <button class="btn btn-primary" id="addParentBtn">确认</button>
+        </form>
+        <h3>分类信息</h3>
+        <div class="category-box">
+
+            <!--一个分类组-->
+            <!--<div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="category-title">数码3C</span>
+                </div>
+                <div class="panel-body">
+                    <div class="btn btn-info btn-lg category-item">子分类1</div>
+                    <div class="btn btn-info btn-lg category-item">子分类2</div>
+                    <div class="btn btn-info btn-lg category-item">子分werewr类3</div>
+                    <div class="btn btn-info btn-lg category-item">子分类ewrewrrewr3</div>
+                    <div class="btn btn-info btn-lg category-item">子分类3</div>
+                    <button type="button" class="btn btn-success btn-lg"
+                            data-toggle="modal" data-target="#add_child">
+                        <span class=" glyphicon glyphicon-plus"></span> 新增
+                    </button>
+                </div>
+            </div>-->
+
+
+        </div>
+
+        <!--新增弹窗-->
+        <div class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span>&times;</span>
+                        </button>
+                        <h4 class="modal-title">输入子分类名称</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form">
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="输入名称"
+                                       id="inputChildCategory">
+                                <h1></h1>
+                                <button class="btn btn-block btn-success" id="addChildCategoryBtn">
+                                    确认
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<footer class="message_footer">
+            <nav>
+                <ul class="pagination pagenav">
+                    <li class=""><a href="">&laquo; 上一页</a></li>
+                    <li class=""><a href="">下一页 &raquo;</a></li>
+                </ul>
+            </nav>
+        </footer>-->
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/url.js"></script>
+<script src="js/m_add_ategory.js"></script>
+</body>
+</html>

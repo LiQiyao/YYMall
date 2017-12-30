@@ -1,0 +1,42 @@
+.pgrow{
+    width:1090px;
+    padding-top: 20px;
+    margin-left: 14%;
+    margin-right: 14%;
+}
+
+.panel{
+    border-radius: 1px;
+}
+
+.nav-pills{
+    border-width:1px;
+    border-style:solid;
+    border-color: #e7e7e7;
+}
+
+.nav li a{
+    border-radius: 0;
+}
+
+.nav li a:hover{
+    color: #3a3a3a;
+}
+
+.nav-title{
+    font-weight: 700;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 10px;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.panel-heading{
+    font-weight: 700;
+}
+
+.charts{
+    width: 600px;
+    height: 600px;
+}

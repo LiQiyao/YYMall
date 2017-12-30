@@ -178,6 +178,6 @@
   <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="long">
     select
      <include refid="Base_Column_List"/>
-     from `order` WHERE order_no=#{orderNo}
+     from `order_item` WHERE order_no=#{orderNo}
   </select>
 </mapper>

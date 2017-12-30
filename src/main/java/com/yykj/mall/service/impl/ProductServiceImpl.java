@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class ProductServiceImpl implements IProductService {
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Override
+    @Transactional
     public ServerResponse saveOrUpdate(Product product) {
         if (product != null) {
             if (StringUtils.isNotBlank(product.getSubImages())){
@@ -56,7 +58,7 @@ public class ProductServiceImpl implements IProductService {
                 }
                 return ServerResponse.createByErrorMessage("新增产品失败！");
             } else {
-                int res = productMapper.updateByPrimaryKey(product);
+                int res = productMapper.updateByPrimaryKeySelective(product);
                 if (res > 0){
                     return ServerResponse.createBySuccessMessage("更新产品成功！");
                 }
@@ -130,9 +132,9 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ServerResponse<PageInfo> searchProduct(String productName, Integer productId, int pageNum, int pageSize){
+    public ServerResponse<PageInfo> searchProduct(String productName, int pageNum, int pageSize){
         PageHelper.startPage(pageNum, pageSize);
-        List<Product> productList = productMapper.selectByNameAndProductId("%" + productName + "%", productId);
+        List<Product> productList = productMapper.selectByName("%" + productName + "%");
         List<ProductListItemDTO> productListVoList = Lists.newArrayList();
         for (Product productItem : productList){
             ProductListItemDTO productListItemDTO = assembleProductListItemDTO(productItem);

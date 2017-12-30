@@ -1,0 +1,31 @@
+#panel2,#panel3,#panel4,#panel5{
+    display: none;
+}
+
+#filename,#imagename,#softimg{
+    width: 90%;
+}
+
+.fileinput-button {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.fileinput-button input{
+    right: 0px;
+    top: 0px;
+    position:absolute;
+    opacity: 0;
+    font-size: 400px;
+}
+
+.progress{
+
+}
+
+#progressblock{
+    width: 50%;
+}
+
+

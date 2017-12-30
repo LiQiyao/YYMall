@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>订单详情-筑紫优品</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/cart.css" rel="stylesheet">
+    <link href="css/order.css" rel="stylesheet">
+    <link href="css/order_pay.css" rel="stylesheet">
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+</head>
+<body>
+<div class="pageTop">
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">筑紫优品</a>
+            </div>
+            <div class="navbar-right collapse navbar-collapse">
+                <ul class="nav navbar-nav" id="userNav">
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="bannerTab">
+        <div class="row">
+            <a class="logo" href="#">
+                <img src="image/logo.png">
+            </a>
+            <ul class="menuRow center-block list-inline">
+                <li class="li-item text-center"><a href="main.html">首页</a></li>
+            </ul>
+            <div class="cartWarp">
+                <a href="cart.html">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                </a>
+            </div>
+            <div class="searchWarp">
+                <input type="text" placeholder="搜索商品" id="searchInput">
+                <a href='javascript:void(0)' id="searchBtn">
+                    <span class="glyphicon glyphicon-search"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pageComponent">
+    <div class="bg">
+        <div class="g-row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span>订单详情</span>
+                    <div class="orderStatus pull-right">订单状态：</div>
+                    <div class="orderNo pull-right">订单编号：</div>
+                </div>
+<!--                <div class="panel-body">
+                    <img src="image/ordert.png">
+                </div>-->
+                <ul class="list-group">
+                    <li class="list-group-item address-block">
+                        <h5>收货人信息</h5>
+                        <ul class="address-list">
+                            <li class="address-box">
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <div class="address-info">
+                                    <span>收货人：</span>
+                                    <span class="pull-right"></span>
+                                    <p class="address">收货地址： </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="list-group-item">
+                        <h5>支付及配送方式</h5>
+                        <p>支付类型：在线支付</p>
+                        <p id="payed">已支付：￥0.00</p>
+                        <p>配送方式：快递</p>
+                    </li>
+                    <li class="list-group-item">
+                        <h5>商品信息</h5>
+                        <!--<span>下单时间 2017-11-03 18:02:16</span>-->
+                        <div class="cb-head">
+                            <div class="tt">
+                                <div class="w1">
+                                    <div class="w-chkbox">
+                                    </div>
+                                </div>
+                                <div class="w2">商品信息</div>
+                                <div class="w3">单价</div>
+                                <div class="w4">数量</div>
+                                <div class="w5">小计</div>
+                            </div>
+                        </div>
+                        <div class="cb-body">
+                            <div class="cart-group">
+                                <!--<div class="cart-item">
+                                    <div class="i1">
+                                        <div class="ck">
+                                            <div class="w-chkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="i2">
+                                        <div class="pic">
+                                            <img src="image/item/01.jpg">
+                                        </div>
+                                        <div class="nameCon">
+                                            <a href="#">加厚保暖白鸭毛丝羽绒床褥</a>
+                                        </div>
+                                    </div>
+                                    <div class="i3">
+                                        <span>¥</span>
+                                        <span>429.00</span>
+                                    </div>
+                                    <div class="i4">
+                                        <span>1件</span>
+                                    </div>
+                                    <div class="i5">
+                                        <p class="c-price">
+                                            <span>¥</span>
+                                            <span>3000.00</span>
+                                        </p>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h5>订单备注信息</h5>
+                        <p>备注信息：</p>
+                    </li>
+                    <li class="list-group-item" id="info-bottom">
+                        <div class="ok">
+                            <button type="button" class="btn" data-toggle="modal" data-target="#myModal"
+                                    id="paySub">支付</button>
+                        </div>
+                        <div class="last-price">
+                            <span class="lp-tip">应付金额</span>
+                            <span class="lp-num">
+                                <span>￥</span>
+                                <span id="priceNum">0.00</span>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">扫码支付</h4>
+            </div>
+            <div class="modal-body">
+                <img id="payArea" src="image/alipay.jpg">
+                <img id="payCanvas" src="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 成功 -->
+<div class="modal fade tip-modal" id="successModal" tabindex="-1" role="dialog">
+    <div class="alert alert-success" role="alert">付款成功，跳转至订单页！</div>
+</div>
+
+<!-- 失败 -->
+<div class="modal fade tip-modal" id="unknownModal" tabindex="-1" role="dialog">
+    <div class="alert alert-danger" role="alert">请重试</div>
+</div>
+
+
+<div class="pageFoot">
+    <div class="foot1">
+        <div class="f-row">
+            <div class="f-row-item">
+                <div class="item-tel">
+                    <h4 class="it-hd">客户服务</h4>
+                    <a>
+                        <div>在线客服</div>
+                    </a>
+                    <a>
+                        <div>用户反馈</div>
+                    </a>
+                </div>
+            </div>
+            <div class="f-row-item">
+                <div class="whatIs">
+                    <h4>何为优品</h4>
+                    <p>原创生活类电商品牌，秉承一贯的严谨态度，我们深入世界各地，
+                        从源头全程严格把控商品生产环节，力求帮消费者甄选到优质的商品</p>
+                </div>
+            </div>
+            <div class="f-row-item">
+                <div class="appDownload">
+                    <h4>扫码下载APP</h4>
+                    <img src="image/canvas.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foot2">
+        <div class="f-row">
+            <ul class="siteEnsure">
+                <li class="cp-item">
+                    <div class="cp-inner">
+                        <img class="cp-icon" src="image/cpicon1.png">
+                        <p class="cp-text">30天无忧退换货</p>
+                    </div>
+                </li>
+                <li class="cp-item">
+                    <div class="cp-inner">
+                        <img class="cp-icon" src="image/cpicon2.png">
+                        <p class="cp-text">满88元免邮费</p>
+                    </div>
+                </li>
+                <li class="cp-item">
+                    <div class="cp-inner">
+                        <img class="cp-icon" src="image/cpicon3.png">
+                        <p class="cp-text">优质品质保证</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="cp-hr"></div>
+            <div class="siteInfo">
+                <p>关于我们 | 帮助中心 | 售后服务 | 配送与验收 | 商务合作 | 企业采购 | 开放平台 | 搜索推荐 | 友情链接</p>
+                <p>--公司版权所有 © 1997-2018</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/url.js"></script>
+<script src="js/order_pay.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

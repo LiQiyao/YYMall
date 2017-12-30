@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理分类-筑紫优品</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/manager_test.css" rel="stylesheet">
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+</head>
+<body class="background">
+<div class="row clearfix">
+    <div class="column col-lg-12">
+        <nav class="navbar navbar-default navbar-inverse">
+            <div class="title_container">
+                <div class="navbar-header">
+                    <img class="navbar-brand" src="image/logo_white.png">
+                </div>
+                <div class="navbar-inner">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="">管理中心</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="row clearfix" id="box">
+    <div class="column col-lg-2 sidebar">
+        <ul class="nav nav-sidebar" >
+            <li><a href="m_index.html">
+                <span class="glyphicon glyphicon-th-large"></span> 概览</a>
+            </li>
+            <li>
+                <a href="#collapsed1" class="nav-header collapsed active" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-barcode"></div>
+                    商品
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed1" class="nav nav-list collapse" style="height: 0px;">
+                    <li><a href="m_upload.html" class="active"> 上架商品</a></li>
+                    <li><a href="m_product.html" class="active"> 管理商品</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#collapsed2" class="nav-header collapsed" data-toggle="collapse"
+                style="ackground: #0f0f0f;">
+                    <div class="glyphicon glyphicon-th-list"></div>
+                    分类
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed2" class="nav nav-list collapse" style="height: 0px;">
+                    <li><a href="m_add_ategory.html" class="active"> 新增分类</a></li>
+                    <li><a href="m_category.html" class="active"> 管理分类
+                        <span class="pull-right glyphicon glyphicon-chevron-left"></span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#collapsed3" class="nav-header collapsed" data-toggle="collapse">
+                    <div class="glyphicon glyphicon-file"></div>
+                    订单
+                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                </a>
+                <ul id="collapsed3" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                    <li><a href="m_order.html" class="active"> 管理订单</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="column col-lg-10" id="main">
+        <h3>分类信息</h3>
+        <div class="category-box">
+
+            <!--一个分类组-->
+            <!--<div class="panel panel-info">
+                <div class="panel-heading">
+                    <span class="category-title">数码3C</span>
+                    <button type="button" class="btn btn-warning"
+                            data-toggle="modal" data-target="#change_parent">
+                         修改
+                    </button>
+                    <span class="btn btn-danger">删除</span>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th><span class="glyphicon glyphicon-th-large"></span> 子分类ID</th>
+                        <th><span class="glyphicon glyphicon-user"></span> 子分类名</th>
+                        <th><span class="pull-right">操作</span><span class="glyphicon glyphicon-pencil pull-right">&ensp;</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>test</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger"
+                                    data-toggle="modal" data-target="#del">删除</button>
+                            <button type="button" class="btn btn-sm btn-warning"
+                                    data-toggle="modal" data-target="#change_child">
+                                修改
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>te</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="alert('1!')">删除</button>
+                            <div class="btn btn-sm btn-warning"
+                                    data-toggle="modal" data-target="#change_child" onclick="test()">
+                                修改
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>-->
+
+            <!--删除-->
+            <!--<div class="modal fade" id="del" tabindex="-1">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span>x</span>
+                        </button>
+                        <strong>确认要删除吗？</strong>
+                        <h1></h1>
+                        <button type="submit" class="btn btn-block btn-danger">确认</button>
+                    </div>
+                </div>
+            </div>-->
+
+            <!--修改父分类弹窗-->
+            <div class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span>&times;</span>
+                            </button>
+                            <h4 class="modal-title">输入分类名称</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="输入名称"
+                                           id="inputCategoryName">
+                                    <h1></h1>
+                                    <button type="submit" class="btn btn-block btn-success" id="changBtn">
+                                        确认
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--修改子分类弹窗-->
+<!--            <div class="modal fade modal-cgc" tabindex="-1">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span>&times;</span>
+                            </button>
+                            <h4 class="modal-title">输入子分类名称</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="输入名称">
+                                    <h1></h1>
+                                    <button type="submit" class="btn btn-block btn-success">
+                                        确认
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+        </div>
+        <!--<footer class="message_footer ddd">
+            <nav>
+                <ul class="pagination pagenav">
+                    <li class=""><a href="">&laquo; 上一页</a></li>
+                    <li class=""><a href="">下一页 &raquo;</a></li>
+                </ul>
+            </nav>
+        </footer>-->
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/url.js"></script>
+<script src="js/m_category.js"></script>
+</body>
+</html>

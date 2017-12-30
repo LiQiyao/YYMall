@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.tip-modal{
+    padding: 0;
+    width: 100%;
+    top: 40px;
+}
+.alert{
+    text-align: center;
+    font-weight: 600;
+    border-radius: 1px;
+}
+
+body{
+    overflow-x:hidden;
+}
+.sidebar a{
+    text-decoration:none;
+    color: #eae8ed;
+}
+.sidebar li a:hover{
+    background: #0f0f0f;
+}
+.sidebar li a:focus{
+    background: #0f0f0f;
+}
+#box{
+    background:#222222;
+    height:100%;
+}
+#box .sidebar{
+    padding-right: 0;
+    width: 13%;
+}
+#main{
+    width: 87%;
+    height: 100%;
+}
+.navbar{
+    margin: 0;
+    border-radius: 0;
+    border: 0
+}
+#contain{
+    padding-top: -100px;
+}
+#main{
+    background: #eeeeee;
+    padding-bottom: 40px;
+}
+.media-heading{
+    margin-top: 10px;
+}
+.background{
+    background: #f8f8f8;
+}
+.title_container{
+    margin: auto;
+    width: 100%;
+}
+.navbar-brand{
+    padding:5px;
+}
+.img-circle{
+    width: 35px;
+}
+textarea{
+    resize:none;
+}
+.softlist a{
+    text-decoration:none;
+    color: #0f0f0f;
+}
+.softlist a:hover{
+    color: #2b669a;
+}
+.softlist img{
+    width: 85px;
+    height: 80px;
+    padding: 5px;
+}
+#soft_graph,#comment_graph,#user_graph,#visit_graph{
+    width: 300px;
+    height:300px;
+}
+#myForm select{
+    width: 85%;
+}
+#filename,#imagename,#softimg{
+    width: 78.5%;
+}
+#upload-box{
+    padding-left: 5px;
+    width: 57.8%;
+}
+.category-box .panel{
+    width: 90%;
+}
+.category-box .panel-heading .category-title{
+    font-size: 120%;
+    font-weight: bold;
+}
+.category-box .panel-heading .btn{
+    float: right;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+.category-box .panel-body .btn{
+    margin: 5px;
+}
+
+/*.category-box .panel-body .btn-success{
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-radius: 50%;
+}*/
+
+.fileinput-button {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.fileinput-button input{
+    right: 0px;
+    top: 0px;
+    position:absolute;
+    opacity: 0;
+    font-size: 400px;
+}
+
+.progress{
+    display: none;
+}
+
+#progressblock{
+    width: 50%;
+}
+#test a{
+    background: #3fa4f1;
+    color: #FFFFFF;
+}
+#test a:hover{
+    background: #266897;
+    color: #FFFFFF;
+}
+
+#addImgBtn{
+    float: left;
+}
+
+#img-thumbnail{
+    width: 90px;
+    height: 90px;
+}
+
+

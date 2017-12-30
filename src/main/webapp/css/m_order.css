@@ -1,0 +1,114 @@
+.cb-head{
+    margin-top: 20px;
+    width: 100%;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+.cb-body{
+    width: 100%;
+}
+
+.cart-group{
+    width: 100%;
+}
+
+
+.cart-item{
+    height: 80px;
+    padding: 10px 0 10px 0;
+}
+
+.tt{
+    padding: 2px 0 2px 0;
+    width: 100%;
+    height: 100%;
+    border-width:1px;
+    border-style:solid;
+    border-color: #c4c4c4;
+    background: #f8f8f8;
+}
+
+.w2{
+    margin-left: 20px;
+    width: 370px;
+}
+
+.w3{
+    margin-left: 50px;
+    width: 40px;
+}
+
+.w4{
+    margin-left: 95px;
+    width: 100px;
+}
+
+.w5{
+    margin-left: 25px;
+    width: 100px;
+}
+
+.w1, .w2, .w3, .w4, .w5, .w6 {
+    float: left;
+    font-size: 13px;
+    text-align: left;
+    line-height: 24px;
+}
+
+.i1,.i2,.i3,.i4,.i5,.i6{
+    position: relative;
+    float: left;
+}
+
+
+.i2{
+    width: 360px;
+}
+
+.pic{
+    width: 60px;
+    height: 60px;
+    float: left;
+    border-width:1px;
+    border-style:solid;
+    border-color: #c4c4c4;
+}
+
+.pic img{
+    width: 60px;
+    height: 60px;
+}
+
+.nameCon{
+    width: 260px;
+    float: left;
+    padding: 10px 0 0 20px;
+    font-size: 12px;
+}
+
+.i3{
+    width: 180px;
+    height: 33.6px;
+    padding-top: 10px;
+    text-align: center;
+
+}
+
+.i3 p{
+    font-size: 14px;
+}
+
+.i4{
+    width: 100px;
+    height: 40px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.i5{
+    text-align: center;
+    width: 150px;
+    height: 30.6px;
+    padding-top: 10px;
+}

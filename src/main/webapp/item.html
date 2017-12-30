@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>商品示例</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/item.css" rel="stylesheet">
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+</head>
+<body>
+<a href='javascript:void(0)' id="backTop">
+    <div>
+        <span class="glyphicon glyphicon-chevron-up"></span>
+        <p>返回顶部</p>
+    </div>
+</a>
+<div class="pageTop">
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">筑紫优品</a>
+            </div>
+            <div class="navbar-right collapse navbar-collapse">
+                <ul class="nav navbar-nav" id="userNav">
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="bannerTab">
+        <div class="row">
+            <a class="logo" href="#">
+                <img src="image/logo.png">
+            </a>
+            <ul class="menuRow center-block list-inline">
+                <li class="li-item text-center"><a href="main.html">首页</a></li>
+            </ul>
+            <div class="cartWarp">
+                <a href="cart.html">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                </a>
+            </div>
+            <div class="searchWarp">
+                <input type="text" placeholder="搜索商品" id="searchInput">
+                <a href='javascript:void(0)' id="searchBtn">
+                    <span class="glyphicon glyphicon-search"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pageComponent">
+    <div class="bg">
+        <div class="crumb">
+            <!--    <span>
+                    <a href="">首页</a>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </span>
+            <span>
+                    <a href="">居家</a>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </span>
+            <span>
+                    <a href="">被枕</a>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </span>
+            <span>
+                    <a href="">AB面独立弹簧床垫</a>
+                </span>-->
+        </div>
+        <div class="detail">
+            <div class="detailHead">
+                <div class="slide">
+                    <div class="view">
+                        <img src="">
+                    </div>
+                    <div class="list">
+                        <ul></ul>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="intro">
+                        <div class="name"></div>
+                        <div class="desc"></div>
+                    </div>
+                    <div class="price-block">
+                        <div class="pBox">
+                            <span class="label label1">售价</span>
+                            <span class="label2">
+                                <span class="rmb">￥</span>
+                                <span class="num"></span>
+                            </span>
+                        </div>
+                        <div class="sale">
+                            <span class="label">促销</span>
+                            <span>领全场满400减80券，精选礼物买1送1</span>
+                        </div>
+                        <div class="pt">
+                            <span class="label">积分</span>
+                            <span>购买最高得37积分</span>
+                        </div>
+                        <div class="server">
+                            <span class="label">服务</span>
+                            <span>･ 30天无忧退换货    ･ 48小时快速退款    ･ 满88元免邮费    ･ 自营品牌
+                                </span>
+                        </div>
+                    </div>
+                    <!--选择规格尺寸-->
+<!--                    <div class="picker">
+                        <div class="btnList">
+                            <span class="type">规格尺寸</span>
+                            <div class="cont">
+                                <ul class="tabs">
+                                    <li class="tab-con">
+                                        <a href="#" class="tab">
+                                            <span class="txt">1.5*2M</span>
+                                        </a>
+                                    </li>
+                                    <li class="tab-con">
+                                        <a href="#" class="tab">
+                                            <span class="txt">1.8*2M</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="number">
+                        <span class="type">数量</span>
+                        <div class="cont">
+                            <div class="selnum">
+                                <span class="less">
+                                    <a><span class="glyphicon glyphicon-minus small"></span></a>
+                                </span>
+                                <input id="ordernum" type="txt" value="1">
+                                <span class="more">
+                                    <a><span class="glyphicon glyphicon-plus small"></span></a>
+                                </span>
+                            </div>
+                            <span class="stock">（库存<span class="stocknum">0</span>件）</span>
+                        </div>
+                    </div>
+                    <div class="demo"></div>
+                    <div class="btns">
+                        <a class="btn btn-buy" id="buy">
+                            <span>立即购买</span>
+                        </a>
+                        <a class="btn btn-cart" id="addIntoCart">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                            <span>加入购物车</span>
+                        </a>
+                        <a href="javascript:void(0)" id="addColleBtn">
+                            <div class="top">
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                            </div>
+                            <div class="bottom">
+                                <p>收藏商品</p>
+                            </div>
+                        </a>
+                        <a href="javascript:void(0)" id="celColleBtn">
+                            <div class="top">
+                                <span class="glyphicon glyphicon-star"></span>
+                            </div>
+                            <div class="bottom">
+                                <p>取消收藏</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="detailBottom">
+                <div class="left">
+                    <div class="detailNavTab">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item active"><a href="">详情</a></li>
+                            <li class="nav-item"><a href="">评价</a></li>
+                        </ul>
+                    </div>
+                    <div class="detailHtml">
+                        <!--<ul class="attrList">
+                            <li class="attr-item">
+                                <span class="attr-name">面料</span>
+                                <span class="attr-value">全棉</span>
+                            </li>
+                            <li class="attr-item">
+                                <span class="attr-name">面料</span>
+                                <span class="attr-value">全棉</span>
+                            </li>
+                            <li class="attr-item">
+                                <span class="attr-name">面料</span>
+                                <span class="attr-value">全棉</span>
+                            </li>
+                            <li class="attr-item">
+                                <span class="attr-name">面料</span>
+                                <span class="attr-value">全棉</span>
+                            </li>
+                            <li class="attr-item">
+                                <span class="attr-name">面料</span>
+                                <span class="attr-value">全棉</span>
+                            </li>
+                        </ul>-->
+                        <div class="panel-body">
+                            <!--<p><img src="image/item/05.jpg"></p>
+                            <p>safewtwertwr</p>-->
+                        </div>
+                        <div class="other">
+                            <div class="tt">常见问题</div>
+                            <div class="con">
+                                <ul>
+                                    <li class="issue">
+                                        <div class="question">购买运费如何收取？</div>
+                                        <div class="answer">单笔订单金额（不含运费）满88元免邮费；不满88元，每单收取10元运费。
+                                            (港澳台地区需满500元免邮费；不满500元，每单收取30元运费)
+                                        </div>
+                                    </li>
+                                    <li class="issue">
+                                        <div class="question">网易严选的订单如何配送？</div>
+                                        <div class="answer">网易严选会根据商品所在地、顾客所在地和商品的尺寸重量优选物流配送商，确保优质用户体验。
+                                            目前暂不支持自选快递，具体物流信息可在下单成功后“我的订单-追踪物流”中查看。
+                                        </div>
+                                    </li>
+                                    <li class="issue">
+                                        <div class="question">如何申请退换货？</div>
+                                        <div class="answer">
+                                            <p>1.自收到商品之日起30日内，顾客可申请无忧退货；如果是退货，退款将原路返还，不同的银行处理时间不同，预计1-5个工作日到账；</p>
+                                            <p>2.内裤和食品等特殊商品无质量问题不支持退换货；</p>
+                                            <p>3.退货流程：
+                                                确认收货-申请退货-客服审核通过-用户寄回商品-仓库签收验货-退款审核-退款完成；</p>
+                                            <p>4.换货流程：
+                                                确认收货-申请换货-客服审核通过-用户寄回商品-仓库签收验货-客服确认-换货完成；</p>
+                                            <p>5.退换货运费由网易严选承担。上门取件费用由网易严选统一与快递服务商结算，
+                                                顾客只需将退换货商品交给上门取件快递员寄回。如顾客选择自行寄回商品，请先垫付运费，
+                                                到货验证商品后，严选将以现金券形式为用户报销运费，不接受单方面到付件。</p>
+                                        </div>
+                                    </li>
+                                    <li class="issue">
+                                        <div class="question">如何开具发票？</div>
+                                        <div class="answer">
+                                            <p>1.请在下单时选择“我要开发票”并填写相关信息（APP仅限2.4.0及以上版本）。开具增值税专用发票需在下单时
+                                                填写增票资质信息。温馨提示：请确保增票资质信息与贵司税务登记证信息一致，避免因开票信息错误给贵司带来损失。</p>
+                                            <p>2.可选开票内容：
+                                                订单中含有办公用品（箱包、文具、口罩）--办公用品、耗材、日用品、家居用品、食品、酒/饮料、服饰、化妆品；
+                                                不含有办公用品--日用品、家居用品、食品、酒/饮料、服饰、化妆品；
+                                                订单商品为礼品卡--预付卡。
+                                            </p>
+                                            <p>3.增值税专用发票开具内容为明细。</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="commentHtml">
+                        <div class="detailComment">
+                            <ul class="commentList">
+                                <div class="sortbar">
+                                    <div class="sorts">
+                                        <span>排序</span>
+                                        <a href="#" class="sort">默认</a>
+                                        <a href="#" class="sort">评价时间</a>
+                                    </div>
+                                </div>
+                                <li class="c-item">
+                                    <div class="commentUser">
+                                        <div class="avatar">
+                                            <img src="image/avatar.png">
+                                        </div>
+                                        <div class="username">
+                                            <span>AAA</span>
+                                        </div>
+                                    </div>
+                                    <div class="commentItem">
+                                        <div class="skuInfo">
+                                            <span>规格尺寸:1.8*2M</span>
+                                        </div>
+                                        <div class="content">
+                                            包装很好，打开有点鸭绒味，晾晾就好了。做工很细，铺上后翻身没有声音。柔软且暖和，大爱
+                                        </div>
+                                        <ul class="picList">
+                                            <li class="pic-item">
+                                                <div class="before"></div>
+                                                <img src="image/item/01.jpg">
+                                            </li>
+                                            <li class="pic-item">
+                                                <div class="before"></div>
+                                                <img src="image/item/01.jpg">
+                                            </li>
+                                            <li class="pic-item">
+                                                <div class="before"></div>
+                                                <img src="image/item/01.jpg">
+                                            </li>
+                                        </ul>
+                                        <div class="createTime">2017-11-16 13:00</div>
+                                    </div>
+                                </li>
+                                <li class="c-item">
+                                    <div class="commentUser">
+                                        <div class="avatar">
+                                            <img src="image/avatar.png">
+                                        </div>
+                                        <div class="username">
+                                            <span>AAA</span>
+                                        </div>
+                                    </div>
+                                    <div class="commentItem">
+                                        <div class="skuInfo">
+                                            <span>规格尺寸:1.8*2M</span>
+                                        </div>
+                                        <div class="content">
+                                            包装很好，打开有点鸭绒味，晾晾就好了。做工很细，铺上后翻身没有声音。柔软且暖和，大爱
+                                        </div>
+                                        <ul class="picList">
+                                            <li class="pic-item">
+                                                <div class="before"></div>
+                                                <img src="image/item/01.jpg">
+                                            </li>
+                                            <li class="pic-item">
+                                                <div class="before"></div>
+                                                <img src="image/item/01.jpg">
+                                            </li>
+                                            <li class="pic-item">
+                                                <div class="before"></div>
+                                                <img src="image/item/01.jpg">
+                                            </li>
+                                        </ul>
+                                        <div class="createTime">2017-11-16 13:00</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="detailCommentPager">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="disabled">
+                                        <span>
+                                            <span>&laquo;上一页</span>
+                                        </span>
+                                    </li>
+                                    <li class="active">
+                                        <span>1 </span>
+                                    </li>
+                                    <li>
+                                        <span>2</span>
+                                    </li>
+                                    <li>
+                                        <span>3</span>
+                                    </li>
+                                    <li>
+                                        <span>4</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span>下一页&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pageFoot">
+    <div class="foot1">
+        <div class="f-row">
+            <div class="f-row-item">
+                <div class="item-tel">
+                    <h4 class="it-hd">客户服务</h4>
+                    <a><div>在线客服</div></a>
+                    <a><div>用户反馈</div></a>
+                </div>
+            </div>
+            <div class="f-row-item">
+                <div class="whatIs">
+                    <h4>何为优品</h4>
+                    <p>原创生活类电商品牌，秉承一贯的严谨态度，我们深入世界各地，
+                        从源头全程严格把控商品生产环节，力求帮消费者甄选到优质的商品</p>
+                </div>
+            </div>
+            <div class="f-row-item">
+                <div class="appDownload">
+                    <h4>扫码下载APP</h4>
+                    <img src="image/canvas.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foot2">
+        <div class="f-row">
+            <ul class="siteEnsure">
+                <li class="cp-item">
+                    <div class="cp-inner">
+                        <img class="cp-icon" src="image/cpicon1.png">
+                        <p class="cp-text">30天无忧退换货</p>
+                    </div>
+                </li>
+                <li class="cp-item">
+                    <div class="cp-inner">
+                        <img class="cp-icon" src="image/cpicon2.png">
+                        <p class="cp-text">满88元免邮费</p>
+                    </div>
+                </li>
+                <li class="cp-item">
+                    <div class="cp-inner">
+                        <img class="cp-icon" src="image/cpicon3.png">
+                        <p class="cp-text">优质品质保证</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="cp-hr"></div>
+            <div class="siteInfo">
+                <p>关于我们 | 帮助中心 | 售后服务 | 配送与验收 | 商务合作 | 企业采购 | 开放平台 | 搜索推荐 | 友情链接</p>
+                <p>--公司版权所有 © 1997-2018</p>
+            </div>
+        </div>
+    </div>
+    <!-- 库存不足 -->
+    <div class="modal fade tip-modal" id="successModal" tabindex="-1" role="dialog">
+        <div class="alert alert-danger" role="alert">库存不足</div>
+    </div>
+
+    <!-- 最少购买一件 -->
+    <div class="modal fade tip-modal" id="unknownModal" tabindex="-1" role="dialog">
+        <div class="alert alert-danger" role="alert">最少购买一件</div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/url.js"></script>
+<script src="js/item.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

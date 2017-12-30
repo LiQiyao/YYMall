@@ -1,0 +1,9 @@
+.list-group-item button{
+    float: right;
+    position: relative;
+    bottom: 5px;
+}
+
+#username,#email,#phone{
+    font-weight: 700;
+}

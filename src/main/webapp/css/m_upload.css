@@ -1,0 +1,26 @@
+#uploadForm{
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+#uploadForm input{
+    position:absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px;
+}
+
+.img-area{
+    width: 900px;
+    height: auto;
+}
+
+.img-area img{
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
