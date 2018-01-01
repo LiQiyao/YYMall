@@ -41,6 +41,11 @@ a:visited {
     background:#f8f8f8;
 }
 
+.view img{
+    width: 100%;
+    height: 100%;
+}
+
 .list{
     width: 78px;
     height: 440px;

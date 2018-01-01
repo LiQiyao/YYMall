@@ -61,7 +61,7 @@ $(document).ready(function () {
                         var $div=$("<div class='m-product'></div>");
                         var $hd=$("<div class='hd'>" +
                             "<a href='item.html?id="+obj.id+"'>" +
-                            "<img src='image/item/01.jpg'></a></a></div>");
+                            "<img src='http://"+imgurl+"/"+obj.mainImage+"'></a></a></div>");
                         var $bd=$("<div class='bd'>" +
                             "<h4 class='name'>" +
                             "<a href='item.html?id="+obj.id+"'>"+obj.name+"</a></h4>" +
@@ -97,7 +97,7 @@ $(document).ready(function () {
                         var $div=$("<div class='m-product'></div>");
                         var $hd=$("<div class='hd'>" +
                             "<a href='item.html?id="+obj.id+"'>" +
-                            "<img src='image/item/01.jpg'></a></a></div>");
+                            "<img src='http://"+imgurl+"/"+obj.mainImage+"'></a></a></div>");
                         var $bd=$("<div class='bd'>" +
                             "<h4 class='name'>" +
                             "<a href='item.html?id="+obj.id+"'>"+obj.name+"</a></h4>" +

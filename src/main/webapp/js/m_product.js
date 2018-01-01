@@ -22,18 +22,25 @@ $(document).ready(function () {
     getPageNum();
 
     function getPageNum() {
-        if (total<=8){
+        console.log(total);
+        /*if (total<=8){
             $("#Previous").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
             $("#Next").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
-        }else if (pageNum==1){
+        }else */
+        if(total<=8){
             $("#Previous").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
-            $("#Next").removeAttr("disabled");
-        }else if (pageNum==Math.ceil(total/8)){
             $("#Next").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
-            $("#Previous").removeAttr("disabled");
         }else {
-            $("#Previous").removeAttr("disabled");
-            $("#Next").removeAttr("disabled");
+            if (pageNum==1){
+                $("#Previous").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
+                $("#Next").removeAttr("disabled");
+            }else if (pageNum==Math.ceil(total/8)){
+                $("#Next").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
+                $("#Previous").removeAttr("disabled");
+            } else {
+                $("#Previous").removeAttr("disabled");
+                $("#Next").removeAttr("disabled");
+            }
         }
     }
 

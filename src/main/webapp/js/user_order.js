@@ -12,20 +12,24 @@ $(document).ready(function () {
             total=result.data.total;
         }
     });
+
     getPageNum();
     function getPageNum() {
-        if (total<=5){
+
+        if(total<=5){
             $("#Previous").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
             $("#Next").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
-        }else if (pageNum==1){
-            $("#Previous").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
-            $("#Next").removeAttr("disabled");
-        }else if (pageNum==Math.ceil(total/5)){
-            $("#Next").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
-            $("#Previous").removeAttr("disabled");
         }else {
-            $("#Previous").removeAttr("disabled");
-            $("#Next").removeAttr("disabled");
+            if (pageNum==1){
+                $("#Previous").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
+                $("#Next").removeAttr("disabled");
+            }else if (pageNum==Math.ceil(total/5)){
+                $("#Next").on('click',function(){event.preventDefault()}).attr("disabled","disabled");
+                $("#Previous").removeAttr("disabled");
+            } else {
+                $("#Previous").removeAttr("disabled");
+                $("#Next").removeAttr("disabled");
+            }
         }
     }
 
@@ -40,7 +44,7 @@ $(document).ready(function () {
             type: "GET",
             dataType: 'JSON',
             success: function (result) {
-                console.log(result);
+               /* console.log(result);*/
                 $.each(result, function (i, item) {
                     $.each(item.list, function (j, obj) {
                         var $table = $("<table class='table tb-item'></table>");
@@ -97,7 +101,7 @@ $(document).ready(function () {
 
 
     $("#Next").click(function () {
-        console.log(pageNum);
+        /*console.log(pageNum);*/
         pageNum++;
         $(".tb-item").remove();
         $.ajax({
@@ -169,7 +173,7 @@ $(document).ready(function () {
             type: "GET",
             dataType: 'JSON',
             success: function (result) {
-                console.log(result);
+                /*console.log(result);*/
                 $.each(result, function (i, item) {
                     $.each(item.list, function (j, obj) {
                         var $table = $("<table class='table tb-item'></table>");

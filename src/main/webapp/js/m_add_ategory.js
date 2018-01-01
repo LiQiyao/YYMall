@@ -4,20 +4,28 @@ $(document).ready(function () {
     });
 
     //页面调整
-     var widowheight = $(window).height() - 50;
-     $("body").css("height", widowheight);
+  /*   var widowheight = $(window).height() - 50;
+     $("body").css("height", widowheight);*/
 
-   /* var $category_item1=$("<div class='btn btn-info btn-lg category-item'>示例1</div>");
-    var $category_item2=$("<div class='btn btn-info btn-lg category-item'>示例2</div>");
+    $.ajaxSettings.statusCode = {
+        412:function() {
+            location.reload();
+        }
+    };
 
-    var $btn_add=$("<button type='button' class='btn btn-success btn-lg' data-toggle='modal' data-target='#add_child'>" +
-        "<span class='glyphicon glyphicon-plus'></span> 新增 </button>");
-    var $panel_body=$("<div class='panel-body'></div>");
-    var $panel_heading=$("<div class='panel-heading'> <span class='category-title'>浏览器</span>");
-    var $panel=$("<div class='panel panel-default'>");
-    $panel_body.append($category_item1,$category_item2,$btn_add);
-    $panel.append($panel_heading,$panel_body);
-    $(".category-box").append($panel);*/
+
+
+    /* var $category_item1=$("<div class='btn btn-info btn-lg category-item'>示例1</div>");
+     var $category_item2=$("<div class='btn btn-info btn-lg category-item'>示例2</div>");
+
+     var $btn_add=$("<button type='button' class='btn btn-success btn-lg' data-toggle='modal' data-target='#add_child'>" +
+         "<span class='glyphicon glyphicon-plus'></span> 新增 </button>");
+     var $panel_body=$("<div class='panel-body'></div>");
+     var $panel_heading=$("<div class='panel-heading'> <span class='category-title'>浏览器</span>");
+     var $panel=$("<div class='panel panel-default'>");
+     $panel_body.append($category_item1,$category_item2,$btn_add);
+     $panel.append($panel_heading,$panel_body);
+     $(".category-box").append($panel);*/
 
     $("#addParentBtn").click(function () {
         $.ajax({

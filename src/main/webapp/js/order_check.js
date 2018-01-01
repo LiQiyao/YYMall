@@ -43,6 +43,9 @@ $(document).ready(function () {
             console.log(result);
             var shippingId;
             /*var $formGroup=$("<form action='' method='POST' id='formGroup'></form>");*/
+            if($.isEmptyObject(result.data.list)){
+                $("#orderSub").attr("disabled","disabled");
+            }
             $.each(result,function(i,item){
                 $.each(item.list,function(x,obj){
                     var $input=$("<label for='check"+obj.id+"' class='radio_label'>" +

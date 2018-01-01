@@ -81,7 +81,7 @@ $(document).ready(function () {
                 uriStr += data.data.uri + ',';
                 imgnum++;
                 if (imgnum>5){
-                    uriStr=uriStr.substring(0,uriStr.length-1);
+                   /* uriStr=uriStr.substring(0,uriStr.length-1);*/
                     $("#uploadImgBtn").attr("disabled", "disabled");
                     console.log(uriStr);
                 }
@@ -107,7 +107,7 @@ $(document).ready(function () {
             + "&stock=" + $("#inputStock").val()
             + "&categoryId=" + $("#selChlidId").val()
             + "&detail=" + $("#inputDetail").val()
-            + "&subImages="+uriStr
+            + "&subImages="+uriStr.substring(0,uriStr.length-1)
             ,
             error: function (request) {
                 console.log(request);

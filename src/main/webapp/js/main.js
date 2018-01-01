@@ -158,6 +158,7 @@ $(document).ready(function () {
             type: "GET",
             dataType: 'JSON',
             success: function(result){
+                console.log(result);
                 $.each(result,function(i,item){
                     $.each(item.list,function(x,obj){
                         var $img=$("<img src='http://"+imgurl+"/"+obj.mainImage+"'>");
